@@ -2775,69 +2775,92 @@
         }
         
         // Show link statistics
-  async function showLinkStats(linkId) {
-    // أضف هنا أي كود تهيئة لقاعدة البيانات إذا لم يكن موجوداً:
-    // const db = firebase.firestore();
-
-    // عرض مؤشر التحميل (إن كان في الكود)
+    async function showLinkStats(linkId) {
     setLoading(true);
-
+    const modal = new bootstrap.Modal(document.getElementById('statsModal'));
+    
     try {
-      // جلب مستند الرابط نفسه
-      const linkDoc = await db.collection('links').doc(linkId).get();
-      // جلب مستند الإحصائيات الخاص به
-      const statsDoc = await db.collection('stats').doc(linkId).get();
-
-      if (!linkDoc.exists || !statsDoc.exists) {
-        throw new Error('لم يتم العثور على البيانات');
-      }
-
-      const linkData  = linkDoc.data();
-      const statsData = statsDoc.data();
-
-      // تعيين العناوين والقيم في المودال
-      document.getElementById('statsLinkTitle').textContent = linkData.seriesName;
-      document.getElementById('statsLinkUrl').textContent   = statsData.shortUrl || linkData.shortUrl;
-      document.getElementById('statsLinkUrl').href          = statsData.shortUrl || linkData.shortUrl;
-
-      // مثال على حقول إحصائية أخرى (تأكد من وجودها في الـ HTML بنفس الـ id)
-      document.getElementById('totalVisits').textContent = statsData.totalVisits;
-      document.getElementById('todayVisits').textContent = statsData.todayVisits;
-    }
-    catch (error) {
-      console.error('Error loading link stats:', error);
-      alert('فشل في تحميل الإحصائيات: ' + error.message);
-    }
-    finally {
-      setLoading(false);
-    }
-
-    // عرض المودال
-    new bootstrap.Modal(document.getElementById('statsModal')).show();
-  }
+        // جلب بيانات الرابط
+        const linkDoc = await db.collection('links').doc(linkId).get();
         
-        // Show earnings for a link
-        function showEarnings(linkId) {
-            setLoading(true);
-            try {
-                // In a real app, you would fetch earnings data from Firestore
-                // For demonstration, we'll use mock data
-                document.getElementById('earningsLinkTitle').textContent = `إيرادات الرابط ${linkId}`;
-                
-                // Create earnings chart
-                createEarningsChart();
-                
-                // Show modal
-                const modal = new bootstrap.Modal(document.getElementById('earningsModal'));
-                modal.show();
-            } catch (error) {
-                console.error('Error loading earnings:', error);
-                showNotification('error', `فشل في تحميل بيانات الإيرادات: ${error.message}`);
-            } finally {
-                setLoading(false);
+        if (!linkDoc.exists) {
+            throw new Error('لم يتم العثور على الرابط');
+        }
+        
+        const linkData = linkDoc.data();
+        
+        // جلب بيانات الزيارات
+        const visitsSnapshot = await db.collection('visits')
+            .where('linkId', '==', linkId)
+            .get();
+            
+        // حساب الإحصائيات
+        let totalVisits = visitsSnapshot.size;
+        let todayVisits = 0;
+        let countries = {};
+        let devices = {};
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        visitsSnapshot.forEach(doc => {
+            const visit = doc.data();
+            const visitDate = visit.timestamp.toDate();
+            
+            // زيارات اليوم
+            if (visitDate >= today) {
+                todayVisits++;
+            }
+            
+            // تجميع البلدان
+            if (visit.country) {
+                countries[visit.country] = (countries[visit.country] || 0) + 1;
+            }
+            
+            // تجميع الأجهزة
+            if (visit.device) {
+                devices[visit.device] = (devices[visit.device] || 0) + 1;
+            }
+        });
+        
+        // إيجاد البلد الأكثر زيارة
+        let topCountry = "لا توجد بيانات";
+        let maxCountry = 0;
+        for (const country in countries) {
+            if (countries[country] > maxCountry) {
+                maxCountry = countries[country];
+                topCountry = country;
             }
         }
         
+        // إيجاد الجهاز الأكثر استخداماً
+        let topDevice = "لا توجد بيانات";
+        let maxDevice = 0;
+        for (const device in devices) {
+            if (devices[device] > maxDevice) {
+                maxDevice = devices[device];
+                topDevice = device;
+            }
+        }
+        
+        // تحديث واجهة المستخدم
+        document.getElementById('statsLinkTitle').textContent = linkData.seriesName;
+        document.getElementById('statsLinkUrl').textContent = linkData.shortUrl;
+        document.getElementById('statsLinkUrl').href = linkData.shortUrl;
+        document.getElementById('totalVisits').textContent = totalVisits.toLocaleString();
+        document.getElementById('todayVisits').textContent = todayVisits.toLocaleString();
+        document.getElementById('topCountry').textContent = topCountry;
+        document.getElementById('topDevice').textContent = topDevice;
+        
+        modal.show();
+        
+    } catch (error) {
+        console.error('Error loading link stats:', error);
+        alert('فشل في تحميل الإحصائيات: ' + error.message);
+    } finally {
+        setLoading(false);
+    }
+}
         // Create charts for stats
         function createCharts() {
             // Visits over time chart
