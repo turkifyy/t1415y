@@ -4565,6 +4565,7 @@ function createSourcesChart(visits) {
 
         // Firebase Authentication
         function initAuth() {
+            initModernNavigation();
             auth.onAuthStateChanged(async (user) => {
                 if (user) {
                     // User is signed in
@@ -4597,7 +4598,6 @@ function createSourcesChart(visits) {
                     if (window.location.hash === '#admin') {
                         hideAllPanels();
                         showFeatures();
-                        initModernNavigation();
                     }
                 }
             });
