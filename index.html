@@ -4564,8 +4564,6 @@ function createSourcesChart(visits) {
 
         // Firebase Authentication - مع إصلاح الأخطاء
 function initAuth() {
-    initModernNavigation(); // تهيئة نظام التنقل المتطور
-    
     auth.onAuthStateChanged(async (user) => {
         if (user) {
             // User is signed in
