@@ -4562,19 +4562,24 @@ function createSourcesChart(visits) {
             }
         }
 
-        // Firebase Authentication
+        // Firebase Authentication - مع إصلاح الأخطاء
 function initAuth() {
     initModernNavigation(); // تهيئة نظام التنقل المتطور
     
     auth.onAuthStateChanged(async (user) => {
         if (user) {
             // User is signed in
-            userProfile.style.display = 'flex';
-            authButtons.style.display = 'none';
+            const userProfile = document.getElementById('userProfile');
+            const authButtons = document.getElementById('authButtons');
+            const userPhoto = document.getElementById('userPhoto');
+            const userName = document.getElementById('userName');
+            
+            if (userProfile) userProfile.style.display = 'flex';
+            if (authButtons) authButtons.style.display = 'none';
             
             // Set user info
-            userPhoto.src = user.photoURL || 'https://via.placeholder.com/40';
-            userName.textContent = user.displayName || 'مستخدم';
+            if (userPhoto) userPhoto.src = user.photoURL || 'https://via.placeholder.com/40';
+            if (userName) userName.textContent = user.displayName || 'مستخدم';
             
             // تحديث الملف الشخصي العصري
             updateUserProfile(user);
@@ -4597,8 +4602,11 @@ function initAuth() {
             loadLiveStats();
         } else {
             // User is signed out
-            userProfile.style.display = 'none';
-            authButtons.style.display = 'block';
+            const userProfile = document.getElementById('userProfile');
+            const authButtons = document.getElementById('authButtons');
+            
+            if (userProfile) userProfile.style.display = 'none';
+            if (authButtons) authButtons.style.display = 'block';
             
             // إخفاء العناصر الخاصة بالمستخدمين المسجلين
             updateNavbarVisibility(null);
@@ -4611,25 +4619,31 @@ function initAuth() {
         }
     });
     
-    // Sign in with Google
-    signInButton.addEventListener('click', async () => {
-        try {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            const result = await auth.signInWithPopup(provider);
-            showNotification('success', `تم تسجيل دخولك بنجاح، أهلاً بك ${result.user.displayName || 'مستخدم'}!`);
-        } catch (error) {
-            showNotification('error', `فشل تسجيل الدخول: ${error.message}`);
-        }
-    });
+    // Sign in with Google - مع فحص وجود العنصر
+    const signInButton = document.getElementById('signInButton');
+    if (signInButton) {
+        signInButton.addEventListener('click', async () => {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                const result = await auth.signInWithPopup(provider);
+                showNotification('success', `تم تسجيل دخولك بنجاح، أهلاً بك ${result.user.displayName || 'مستخدم'}!`);
+            } catch (error) {
+                showNotification('error', `فشل تسجيل الدخول: ${error.message}`);
+            }
+        });
+    }
     
-    // Sign out
-    signOutButton.addEventListener('click', () => {
-        auth.signOut();
-        showNotification('info', 'تم تسجيل خروجك بنجاح');
-        // إعادة توجيه للصفحة الرئيسية
-        window.location.hash = '';
-        showFeatures();
-    });
+    // Sign out - مع فحص وجود العنصر
+    const signOutButton = document.getElementById('signOutButton');
+    if (signOutButton) {
+        signOutButton.addEventListener('click', () => {
+            auth.signOut();
+            showNotification('info', 'تم تسجيل خروجك بنجاح');
+            // إعادة توجيه للصفحة الرئيسية
+            window.location.hash = '';
+            showFeatures();
+        });
+    }
 }
         
         
@@ -4815,17 +4829,6 @@ function initAuth() {
                 episodeWrapper.style.display = 'none';
                 startingEpisodeWrapper.style.display = 'none';
             }
-        });
-        
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            initPage();
-            initAuth();
-            updateSocialPreview();
-            
-            // Set up button event listeners
-            generateBtn.addEventListener('click', generateLink);
-            updateBtn.addEventListener('click', updateLink);
         });
         
         // مراقب لضمان ظهور المحتوى
@@ -5279,6 +5282,60 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+    // تهيئة شاملة للصفحة مع ضمان تحميل DOM
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing...');
+    
+    // التأكد من تحميل Firebase
+    if (typeof firebase !== 'undefined') {
+        initPage();
+        initAuth();
+        updateSocialPreview();
+        
+        // إعداد أزرار الإنشاء والتحديث
+        const generateBtn = document.getElementById('generateBtn');
+        const updateBtn = document.getElementById('updateBtn');
+        
+        if (generateBtn) {
+            generateBtn.addEventListener('click', generateLink);
+        }
+        
+        if (updateBtn) {
+            updateBtn.addEventListener('click', updateLink);
+        }
+        
+        console.log('All systems initialized successfully');
+    } else {
+        console.error('Firebase not loaded');
+        setTimeout(() => {
+            if (typeof firebase !== 'undefined') {
+                initPage();
+                initAuth();
+                updateSocialPreview();
+            }
+        }, 2000);
+    }
+});
+
+// نسخة احتياطية للتهيئة
+window.addEventListener('load', function() {
+    // التأكد من أن كل شيء تم تحميله
+    setTimeout(() => {
+        const signInButton = document.getElementById('signInButton');
+        const signOutButton = document.getElementById('signOutButton');
+        
+        console.log('Sign in button:', signInButton);
+        console.log('Sign out button:', signOutButton);
+        
+        if (!signInButton || !signOutButton) {
+            console.warn('Some elements are missing, retrying initialization...');
+            if (typeof initAuth === 'function') {
+                initAuth();
+            }
+        }
+    }, 1000);
+});       
     </script>
 </body>
 </html>
