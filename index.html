@@ -1330,6 +1330,386 @@
     }
 }
 
+/* Bulk Import System Styles */
+.bulk-import-card {
+    border: none;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.bulk-import-card .card-header {
+    background: linear-gradient(135deg, var(--primary-purple) 0%, #6f42c1 100%);
+    color: white;
+    padding: 20px;
+    border-bottom: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.bulk-step {
+    padding: 30px 0;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.bulk-step:last-child {
+    border-bottom: none;
+}
+
+.step-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: var(--primary-purple);
+}
+
+.step-number {
+    background: var(--accent-teal);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.content-type-preview {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    border: 2px dashed #dee2e6;
+    transition: all 0.3s ease;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-type-preview.active {
+    border-color: var(--accent-teal);
+    background: rgba(46, 196, 182, 0.1);
+}
+
+.upload-area {
+    border: 3px dashed #dee2e6;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-area:hover {
+    border-color: var(--accent-teal);
+    background: rgba(46, 196, 182, 0.1);
+}
+
+.upload-area.dragover {
+    border-color: var(--primary-purple);
+    background: rgba(74, 21, 75, 0.1);
+    transform: scale(1.02);
+}
+
+.upload-content h5 {
+    color: var(--primary-purple);
+    margin-bottom: 10px;
+}
+
+.file-info {
+    background: #e8f5e8;
+    border: 1px solid #d4edda;
+    border-radius: 10px;
+    padding: 15px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.template-download {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ffeaa7;
+}
+
+.data-preview-container {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.preview-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    display: block;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-purple);
+}
+
+.preview-table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.preview-table thead th {
+    background: var(--primary-purple);
+    color: white;
+    border: none;
+    font-weight: 500;
+    padding: 12px;
+}
+
+.preview-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.preview-table tbody td {
+    padding: 10px 12px;
+    border: none;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.validation-errors {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.validation-errors ul {
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.validation-errors li {
+    color: #721c24;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(114, 28, 36, 0.1);
+}
+
+.bulk-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+.bulk-actions .btn {
+    min-width: 120px;
+    padding: 12px 25px;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+/* Processing Modal Styles */
+.progress-overview {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.progress-stat {
+    padding: 10px;
+}
+
+.progress-number {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.progress-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.current-processing {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+}
+
+.current-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.processing-spinner {
+    flex-shrink: 0;
+}
+
+.processing-log {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+}
+
+.log-container {
+    max-height: 200px;
+    overflow-y: auto;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.log-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-entry.success {
+    color: #28a745;
+}
+
+.log-entry.error {
+    color: #dc3545;
+}
+
+.log-entry.info {
+    color: #17a2b8;
+}
+
+.log-timestamp {
+    color: #6c757d;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+/* Content Type Icons */
+.content-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.content-icon.series { color: #6f42c1; }
+.content-icon.movie { color: #fd7e14; }
+.content-icon.match { color: #28a745; }
+.content-icon.recipe { color: #ffc107; }
+.content-icon.game { color: #dc3545; }
+.content-icon.app { color: #20c997; }
+.content-icon.channel { color: #6610f2; }
+.content-icon.reels { color: #e83e8c; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bulk-step {
+        padding: 20px 0;
+    }
+    
+    .upload-area {
+        padding: 30px 20px;
+        min-height: 150px;
+    }
+    
+    .preview-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .bulk-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .bulk-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .progress-overview .row {
+        text-align: center;
+    }
+    
+    .progress-overview .col-3 {
+        margin-bottom: 15px;
+    }
+}
+
+/* Animation for steps */
+.bulk-step.active {
+    background: rgba(46, 196, 182, 0.05);
+    border-left: 4px solid var(--accent-teal);
+    padding-left: 26px;
+}
+
+.bulk-step.completed .step-number {
+    background: #28a745;
+}
+
+.bulk-step.completed .step-number::after {
+    content: "✓";
+}
+
+/* File type indicators */
+.file-type-csv::before {
+    content: "📊";
+    margin-right: 8px;
+}
+
+.file-type-xlsx::before {
+    content: "📗";
+    margin-right: 8px;
+}
+
+.file-type-xls::before {
+    content: "📘";
+    margin-right: 8px;
+}
+        
     </style>
     
     <!-- Google Analytics -->
@@ -1590,6 +1970,271 @@
                         </div>
                     </div>
                 </div>
+
+                 <!-- Bulk Link Import Section -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card bulk-import-card">
+            <div class="card-header">
+                <i class="fas fa-upload me-2"></i>استيراد الروابط المجمعة (Bulk Import)
+                <span class="badge bg-info ms-2">متقدم</span>
+            </div>
+            <div class="card-body">
+                <!-- Step 1: Content Type Selection -->
+                <div class="bulk-step" id="step1">
+                    <h5 class="step-title">
+                        <span class="step-number">1</span>
+                        اختر نوع المحتوى
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">نوع المحتوى للملف:</label>
+                            <select class="form-select form-select-lg" id="bulkContentType">
+                                <option value="">-- اختر نوع المحتوى --</option>
+                                <option value="series">مسلسلات</option>
+                                <option value="movie">أفلام</option>
+                                <option value="match">مباريات</option>
+                                <option value="recipe">وصفات</option>
+                                <option value="game">ألعاب</option>
+                                <option value="app">تطبيقات</option>
+                                <option value="channel">قنوات</option>
+                                <option value="reels">ريلز</option>
+                            </select>
+                            <div class="form-text">جميع الروابط في الملف ستكون من هذا النوع</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="content-type-preview" id="contentTypePreview">
+                                <i class="fas fa-film fa-3x text-muted"></i>
+                                <p class="text-muted mt-2">اختر نوع المحتوى لرؤية المعاينة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: File Upload -->
+                <div class="bulk-step" id="step2" style="display: none;">
+                    <h5 class="step-title">
+                        <span class="step-number">2</span>
+                        رفع الملف
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="upload-area" id="uploadArea">
+                                <div class="upload-content">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                                    <h5>اسحب وأفلت الملف هنا</h5>
+                                    <p class="text-muted">أو انقر لاختيار الملف</p>
+                                    <p class="small text-muted">يدعم: CSV, XLSX, XLS (حد أقصى: 50MB)</p>
+                                </div>
+                                <input type="file" id="bulkFileInput" accept=".csv,.xlsx,.xls" hidden>
+                            </div>
+                            
+                            <!-- File Info -->
+                            <div id="fileInfo" class="file-info mt-3" style="display: none;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-file-excel text-success fa-2x me-3"></i>
+                                    <div>
+                                        <strong id="fileName">filename.csv</strong>
+                                        <div class="small text-muted">
+                                            <span id="fileSize">0 KB</span> • 
+                                            <span id="rowCount">0 صف</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger ms-auto" id="removeFile">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="template-download">
+                                <h6><i class="fas fa-download me-2"></i>تحميل قالب</h6>
+                                <p class="small text-muted">حمّل قالب CSV جاهز لتعبئة البيانات</p>
+                                <button class="btn btn-outline-primary btn-sm w-100" id="downloadTemplate">
+                                    <i class="fas fa-download me-2"></i>تحميل قالب CSV
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Data Preview -->
+                <div class="bulk-step" id="step3" style="display: none;">
+                    <h5 class="step-title">
+                        <span class="step-number">3</span>
+                        معاينة البيانات
+                    </h5>
+                    <div class="data-preview-container">
+                        <div class="preview-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">إجمالي الصفوف:</span>
+                                <span class="stat-value" id="totalRows">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">صفوف صحيحة:</span>
+                                <span class="stat-value text-success" id="validRows">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">أخطاء:</span>
+                                <span class="stat-value text-danger" id="errorRows">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive mt-3">
+                            <table class="table table-sm preview-table">
+                                <thead id="previewTableHeader"></thead>
+                                <tbody id="previewTableBody"></tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Validation Errors -->
+                        <div id="validationErrors" class="validation-errors mt-3" style="display: none;">
+                            <h6 class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i>أخطاء التحقق:</h6>
+                            <ul id="errorsList" class="list-unstyled"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Processing Options -->
+                <div class="bulk-step" id="step4" style="display: none;">
+                    <h5 class="step-title">
+                        <span class="step-number">4</span>
+                        خيارات المعالجة
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="skipErrors" checked>
+                                <label class="form-check-label" for="skipErrors">
+                                    تخطي الصفوف التي تحتوي على أخطاء
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="generateReports" checked>
+                                <label class="form-check-label" for="generateReports">
+                                    إنشاء تقرير مفصل
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notifyCompletion" checked>
+                                <label class="form-check-label" for="notifyCompletion">
+                                    إشعار عند الانتهاء
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">نطاق مخصص (اختياري):</label>
+                            <input type="text" class="form-control" id="bulkCustomDomain" 
+                                   placeholder="turkii.netlify.app" value="turkii.netlify.app">
+                            <div class="form-text">سيُستخدم لجميع الروابط</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="bulk-actions mt-4">
+                    <button class="btn btn-outline-secondary" id="prevStep" style="display: none;">
+                        <i class="fas fa-arrow-left me-2"></i>السابق
+                    </button>
+                    <button class="btn btn-primary" id="nextStep" disabled>
+                        التالي<i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                    <button class="btn btn-success btn-lg" id="startBulkImport" style="display: none;">
+                        <i class="fas fa-rocket me-2"></i>بدء الاستيراد المجمع
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bulk Processing Modal -->
+<div class="modal fade" id="bulkProcessingModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-cogs me-2"></i>معالجة الروابط المجمعة
+                </h5>
+            </div>
+            <div class="modal-body">
+                <!-- Progress Overview -->
+                <div class="progress-overview mb-4">
+                    <div class="row text-center">
+                        <div class="col-3">
+                            <div class="progress-stat">
+                                <div class="progress-number text-primary" id="processedCount">0</div>
+                                <div class="progress-label">تم المعالجة</div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="progress-stat">
+                                <div class="progress-number text-success" id="successCount">0</div>
+                                <div class="progress-label">نجح</div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="progress-stat">
+                                <div class="progress-number text-danger" id="failedCount">0</div>
+                                <div class="progress-label">فشل</div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="progress-stat">
+                                <div class="progress-number text-info" id="remainingCount">0</div>
+                                <div class="progress-label">متبقي</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress mb-3" style="height: 20px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         id="bulkProgressBar" style="width: 0%"></div>
+                </div>
+                <div class="text-center mb-3">
+                    <small class="text-muted" id="progressText">جاري التحضير...</small>
+                </div>
+
+                <!-- Current Processing -->
+                <div class="current-processing">
+                    <h6><i class="fas fa-clock me-2"></i>العنصر الحالي:</h6>
+                    <div class="current-item" id="currentItem">
+                        <div class="d-flex align-items-center">
+                            <div class="processing-spinner me-3">
+                                <div class="spinner-border spinner-border-sm text-primary"></div>
+                            </div>
+                            <div>
+                                <strong id="currentItemName">جاري التحضير...</strong>
+                                <div class="small text-muted" id="currentItemUrl">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processing Log -->
+                <div class="processing-log mt-4">
+                    <h6><i class="fas fa-list me-2"></i>سجل المعالجة:</h6>
+                    <div id="processingLog" class="log-container">
+                        <!-- Log entries will be added here -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" id="cancelProcessing">
+                    <i class="fas fa-stop me-2"></i>إيقاف
+                </button>
+                <button type="button" class="btn btn-success" id="downloadReport" style="display: none;">
+                    <i class="fas fa-download me-2"></i>تحميل التقرير
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="closeProcessing" style="display: none;">
+                    إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
                 
                 <!-- Link Management -->
                 <div class="row mt-5">
@@ -5787,6 +6432,755 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+        // 📂 نظام إدارة الروابط المجمعة (Bulk Link Import)
+class BulkLinkImport {
+    constructor() {
+        this.currentStep = 1;
+        this.maxSteps = 4;
+        this.selectedContentType = '';
+        this.uploadedFile = null;
+        this.parsedData = [];
+        this.validData = [];
+        this.errors = [];
+        this.isProcessing = false;
+        this.processingStats = {
+            total: 0,
+            processed: 0,
+            success: 0,
+            failed: 0
+        };
+        
+        this.contentTypeIcons = {
+            'series': 'fas fa-tv',
+            'movie': 'fas fa-film', 
+            'match': 'fas fa-futbol',
+            'recipe': 'fas fa-utensils',
+            'game': 'fas fa-gamepad',
+            'app': 'fas fa-mobile-alt',
+            'channel': 'fas fa-broadcast-tower',
+            'reels': 'fas fa-video'
+        };
+        
+        this.contentTypeNames = {
+            'series': 'مسلسلات',
+            'movie': 'أفلام',
+            'match': 'مباريات', 
+            'recipe': 'وصفات',
+            'game': 'ألعاب',
+            'app': 'تطبيقات',
+            'channel': 'قنوات',
+            'reels': 'ريلز'
+        };
+        
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+        this.updateStepDisplay();
+    }
+
+    setupEventListeners() {
+        // Content type selection
+        document.getElementById('bulkContentType')?.addEventListener('change', (e) => {
+            this.handleContentTypeChange(e.target.value);
+        });
+
+        // File upload
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('bulkFileInput');
+        
+        uploadArea?.addEventListener('click', () => fileInput?.click());
+        uploadArea?.addEventListener('dragover', this.handleDragOver.bind(this));
+        uploadArea?.addEventListener('dragleave', this.handleDragLeave.bind(this));
+        uploadArea?.addEventListener('drop', this.handleFileDrop.bind(this));
+        
+        fileInput?.addEventListener('change', (e) => {
+            if (e.target.files[0]) this.handleFileSelect(e.target.files[0]);
+        });
+
+        // Remove file
+        document.getElementById('removeFile')?.addEventListener('click', () => {
+            this.removeFile();
+        });
+
+        // Download template
+        document.getElementById('downloadTemplate')?.addEventListener('click', () => {
+            this.downloadTemplate();
+        });
+
+        // Navigation buttons
+        document.getElementById('nextStep')?.addEventListener('click', () => {
+            this.nextStep();
+        });
+        
+        document.getElementById('prevStep')?.addEventListener('click', () => {
+            this.prevStep();
+        });
+
+        // Start bulk import
+        document.getElementById('startBulkImport')?.addEventListener('click', () => {
+            this.startBulkImport();
+        });
+
+        // Cancel processing
+        document.getElementById('cancelProcessing')?.addEventListener('click', () => {
+            this.cancelProcessing();
+        });
+
+        // Download report
+        document.getElementById('downloadReport')?.addEventListener('click', () => {
+            this.downloadReport();
+        });
+    }
+
+    // Handle content type selection
+    handleContentTypeChange(contentType) {
+        this.selectedContentType = contentType;
+        this.updateContentTypePreview(contentType);
+        this.updateStepNavigation();
+    }
+
+    updateContentTypePreview(contentType) {
+        const preview = document.getElementById('contentTypePreview');
+        if (!preview) return;
+
+        if (contentType) {
+            const icon = this.contentTypeIcons[contentType];
+            const name = this.contentTypeNames[contentType];
+            
+            preview.innerHTML = `
+                <i class="${icon} content-icon ${contentType}"></i>
+                <h5>${name}</h5>
+                <p class="text-muted">تم اختيار ${name} كنوع المحتوى</p>
+            `;
+            preview.classList.add('active');
+        } else {
+            preview.innerHTML = `
+                <i class="fas fa-film fa-3x text-muted"></i>
+                <p class="text-muted mt-2">اختر نوع المحتوى لرؤية المعاينة</p>
+            `;
+            preview.classList.remove('active');
+        }
+    }
+
+    // File handling
+    handleDragOver(e) {
+        e.preventDefault();
+        document.getElementById('uploadArea')?.classList.add('dragover');
+    }
+
+    handleDragLeave(e) {
+        e.preventDefault();
+        document.getElementById('uploadArea')?.classList.remove('dragover');
+    }
+
+    handleFileDrop(e) {
+        e.preventDefault();
+        document.getElementById('uploadArea')?.classList.remove('dragover');
+        
+        const files = e.dataTransfer.files;
+        if (files[0]) this.handleFileSelect(files[0]);
+    }
+
+    async handleFileSelect(file) {
+        if (!this.validateFile(file)) return;
+        
+        this.uploadedFile = file;
+        this.showFileInfo(file);
+        
+        try {
+            await this.parseFile(file);
+            this.updateStepNavigation();
+        } catch (error) {
+            showNotification('error', `خطأ في قراءة الملف: ${error.message}`);
+        }
+    }
+
+    validateFile(file) {
+        const maxSize = 50 * 1024 * 1024; // 50MB
+        const allowedTypes = [
+            'text/csv',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        ];
+
+        if (file.size > maxSize) {
+            showNotification('error', 'حجم الملف كبير جداً (أقصى حد: 50MB)');
+            return false;
+        }
+
+        if (!allowedTypes.includes(file.type) && !file.name.match(/\.(csv|xlsx|xls)$/i)) {
+            showNotification('error', 'نوع الملف غير مدعوم. يُرجى استخدام CSV أو Excel');
+            return false;
+        }
+
+        return true;
+    }
+
+    showFileInfo(file) {
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        
+        if (fileInfo && fileName && fileSize) {
+            fileName.textContent = file.name;
+            fileSize.textContent = this.formatFileSize(file.size);
+            fileInfo.style.display = 'block';
+        }
+    }
+
+    formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    removeFile() {
+        this.uploadedFile = null;
+        this.parsedData = [];
+        this.validData = [];
+        this.errors = [];
+        
+        document.getElementById('fileInfo').style.display = 'none';
+        document.getElementById('bulkFileInput').value = '';
+        
+        this.updateStepNavigation();
+    }
+
+    // File parsing
+    async parseFile(file) {
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        
+        if (fileExtension === 'csv') {
+            await this.parseCSV(file);
+        } else {
+            await this.parseExcel(file);
+        }
+        
+        this.validateData();
+        this.updateDataPreview();
+    }
+
+    async parseCSV(file) {
+        return new Promise((resolve, reject) => {
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                dynamicTyping: true,
+                complete: (results) => {
+                    this.parsedData = results.data;
+                    document.getElementById('rowCount').textContent = `${results.data.length} صف`;
+                    resolve();
+                },
+                error: (error) => reject(new Error(`خطأ في قراءة CSV: ${error.message}`))
+            });
+        });
+    }
+
+    async parseExcel(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                try {
+                    const workbook = XLSX.read(e.target.result, { type: 'binary' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const data = XLSX.utils.sheet_to_json(firstSheet);
+                    
+                    this.parsedData = data;
+                    document.getElementById('rowCount').textContent = `${data.length} صف`;
+                    resolve();
+                } catch (error) {
+                    reject(new Error(`خطأ في قراءة Excel: ${error.message}`));
+                }
+            };
+            
+            reader.onerror = () => reject(new Error('فشل في قراءة الملف'));
+            reader.readAsBinaryString(file);
+        });
+    }
+
+    // Data validation
+    validateData() {
+        this.validData = [];
+        this.errors = [];
+        
+        const requiredFields = ['name', 'originalUrl'];
+        const optionalFields = ['socialTitle', 'socialDescription', 'socialImage'];
+        
+        this.parsedData.forEach((row, index) => {
+            const rowNumber = index + 2; // +2 because index starts at 0 and we skip header
+            const rowErrors = [];
+            
+            // Check required fields
+            requiredFields.forEach(field => {
+                if (!row[field] || row[field].toString().trim() === '') {
+                    rowErrors.push(`الصف ${rowNumber}: الحقل "${field}" مطلوب`);
+                }
+            });
+            
+            // Validate URL
+            if (row.originalUrl && !this.isValidUrl(row.originalUrl)) {
+                rowErrors.push(`الصف ${rowNumber}: الرابط غير صالح`);
+            }
+            
+            // Validate name
+            if (row.name && !this.isValidSeriesName(row.name)) {
+                rowErrors.push(`الصف ${rowNumber}: اسم غير صالح (يجب أن يحتوي على أحرف وأرقام فقط)`);
+            }
+            
+            if (rowErrors.length === 0) {
+                this.validData.push({
+                    ...row,
+                    rowNumber: rowNumber
+                });
+            } else {
+                this.errors.push(...rowErrors);
+            }
+        });
+    }
+
+    isValidUrl(url) {
+        try {
+            new URL(url);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    isValidSeriesName(name) {
+        const regex = /^[\p{Script=Arabic}\w\s\-_,.\u0600-\u06FF]+$/u;
+        return regex.test(name);
+    }
+
+    // Data preview
+    updateDataPreview() {
+        const totalRows = document.getElementById('totalRows');
+        const validRows = document.getElementById('validRows');
+        const errorRows = document.getElementById('errorRows');
+        
+        if (totalRows) totalRows.textContent = this.parsedData.length;
+        if (validRows) validRows.textContent = this.validData.length;
+        if (errorRows) errorRows.textContent = this.errors.length;
+        
+        this.renderPreviewTable();
+        this.showValidationErrors();
+    }
+
+    renderPreviewTable() {
+        const tableHeader = document.getElementById('previewTableHeader');
+        const tableBody = document.getElementById('previewTableBody');
+        
+        if (!tableHeader || !tableBody || this.parsedData.length === 0) return;
+        
+        // Create header
+        const sampleRow = this.parsedData[0];
+        const headers = Object.keys(sampleRow);
+        
+        tableHeader.innerHTML = `
+            <tr>
+                <th>الصف</th>
+                ${headers.map(header => `<th>${header}</th>`).join('')}
+                <th>الحالة</th>
+            </tr>
+        `;
+        
+        // Create body (show first 10 rows)
+        const previewRows = this.parsedData.slice(0, 10);
+        
+        tableBody.innerHTML = previewRows.map((row, index) => {
+            const rowNumber = index + 2;
+            const isValid = this.validData.some(validRow => validRow.rowNumber === rowNumber);
+            const statusClass = isValid ? 'text-success' : 'text-danger';
+            const statusIcon = isValid ? 'fas fa-check-circle' : 'fas fa-times-circle';
+            const statusText = isValid ? 'صحيح' : 'خطأ';
+            
+            return `
+                <tr>
+                    <td><strong>${rowNumber}</strong></td>
+                    ${headers.map(header => 
+                        `<td title="${row[header] || ''}">${(row[header] || '').toString().substring(0, 30)}${(row[header] || '').length > 30 ? '...' : ''}</td>`
+                    ).join('')}
+                    <td class="${statusClass}">
+                        <i class="${statusIcon} me-1"></i>${statusText}
+                    </td>
+                </tr>
+            `;
+        }).join('');
+        
+        if (this.parsedData.length > 10) {
+            tableBody.innerHTML += `
+                <tr>
+                    <td colspan="${headers.length + 2}" class="text-center text-muted">
+                        ... وعرض ${this.parsedData.length - 10} صف إضافي
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    showValidationErrors() {
+        const errorsContainer = document.getElementById('validationErrors');
+        const errorsList = document.getElementById('errorsList');
+        
+        if (!errorsContainer || !errorsList) return;
+        
+        if (this.errors.length > 0) {
+            errorsList.innerHTML = this.errors.map(error => 
+                `<li><i class="fas fa-exclamation-triangle me-2"></i>${error}</li>`
+            ).join('');
+            errorsContainer.style.display = 'block';
+        } else {
+            errorsContainer.style.display = 'none';
+        }
+    }
+
+    // Template download
+    downloadTemplate() {
+        const headers = [
+            'name',
+            'originalUrl', 
+            'socialTitle',
+            'socialDescription',
+            'socialImage'
+        ];
+        
+        const sampleData = [
+            {
+                name: 'مسلسل تجريبي',
+                originalUrl: 'https://example.com/series1',
+                socialTitle: 'شاهد المسلسل الجديد',
+                socialDescription: 'أحداث مشوقة وقصة رائعة',
+                socialImage: 'https://example.com/image1.jpg'
+            },
+            {
+                name: 'مسلسل آخر',
+                originalUrl: 'https://example.com/series2', 
+                socialTitle: 'مسلسل رائع آخر',
+                socialDescription: 'استمتع بالمشاهدة',
+                socialImage: 'https://example.com/image2.jpg'
+            }
+        ];
+        
+        const csv = Papa.unparse({
+            fields: headers,
+            data: sampleData
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `turkify_bulk_template_${this.selectedContentType || 'general'}.csv`;
+        link.click();
+        
+        showNotification('success', 'تم تحميل القالب بنجاح!');
+    }
+
+    // Step navigation
+    nextStep() {
+        if (this.currentStep < this.maxSteps) {
+            this.currentStep++;
+            this.updateStepDisplay();
+            this.updateStepNavigation();
+        }
+    }
+
+    prevStep() {
+        if (this.currentStep > 1) {
+            this.currentStep--;
+            this.updateStepDisplay();
+            this.updateStepNavigation();
+        }
+    }
+
+    updateStepDisplay() {
+        // Hide all steps
+        for (let i = 1; i <= this.maxSteps; i++) {
+            const step = document.getElementById(`step${i}`);
+            if (step) {
+                step.style.display = i === this.currentStep ? 'block' : 'none';
+                step.classList.toggle('active', i === this.currentStep);
+                step.classList.toggle('completed', i < this.currentStep);
+            }
+        }
+    }
+
+    updateStepNavigation() {
+        const nextBtn = document.getElementById('nextStep');
+        const prevBtn = document.getElementById('prevStep');
+        const importBtn = document.getElementById('startBulkImport');
+        
+        // Previous button
+        if (prevBtn) {
+            prevBtn.style.display = this.currentStep > 1 ? 'inline-block' : 'none';
+        }
+        
+        // Next button
+        if (nextBtn) {
+            let canProceed = false;
+            
+            switch (this.currentStep) {
+                case 1:
+                    canProceed = !!this.selectedContentType;
+                    break;
+                case 2:
+                    canProceed = !!this.uploadedFile && this.parsedData.length > 0;
+                    break;
+                case 3:
+                    canProceed = this.validData.length > 0;
+                    break;
+                case 4:
+                    canProceed = true;
+                    break;
+            }
+            
+            nextBtn.disabled = !canProceed;
+            nextBtn.style.display = this.currentStep < this.maxSteps ? 'inline-block' : 'none';
+        }
+        
+        // Import button
+        if (importBtn) {
+            importBtn.style.display = this.currentStep === this.maxSteps ? 'inline-block' : 'none';
+        }
+    }
+
+    // Bulk import processing
+    async startBulkImport() {
+        if (this.isProcessing) return;
+        
+        this.isProcessing = true;
+        this.processingStats = {
+            total: this.validData.length,
+            processed: 0,
+            success: 0,
+            failed: 0
+        };
+        
+        // Show processing modal
+        const modal = new bootstrap.Modal(document.getElementById('bulkProcessingModal'));
+        modal.show();
+        
+        // Initialize progress
+        this.updateProcessingProgress();
+        
+        try {
+            await this.processLinks();
+            this.completeProcessing();
+        } catch (error) {
+            console.error('Bulk import failed:', error);
+            showNotification('error', 'فشل في الاستيراد المجمع');
+        } finally {
+            this.isProcessing = false;
+        }
+    }
+
+    async processLinks() {
+        const customDomain = document.getElementById('bulkCustomDomain')?.value || 'turkii.netlify.app';
+        const skipErrors = document.getElementById('skipErrors')?.checked || true;
+        
+        for (let i = 0; i < this.validData.length; i++) {
+            if (!this.isProcessing) break; // Stop if cancelled
+            
+            const linkData = this.validData[i];
+            
+            try {
+                this.updateCurrentItem(linkData);
+                
+                // Generate link ID
+                const linkId = Math.floor(100000 + Math.random() * 900000).toString();
+                
+                // Create link data
+                const newLinkData = {
+                    id: linkId,
+                    seriesName: linkData.name,
+                    linkType: this.selectedContentType,
+                    originalUrl: linkData.originalUrl,
+                    shortUrl: `https://${customDomain}/?${this.getUrlParam()}=${encodeURIComponent(linkData.name)}&id=${linkId}`,
+                    customDomain: customDomain,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    userId: auth.currentUser?.uid || null,
+                    clicks: 0,
+                    socialTitle: linkData.socialTitle || `${this.contentTypeNames[this.selectedContentType]} ${linkData.name}`,
+                    socialDescription: linkData.socialDescription || `شاهد ${linkData.name} الآن!`,
+                    socialImage: linkData.socialImage || 'https://via.placeholder.com/1200x630/4A154B/FFFFFF?text=Turkify+Pro',
+                    bulkImported: true,
+                    importBatch: new Date().toISOString()
+                };
+                
+                // Save to Firebase
+                await db.collection('links').doc(linkId).set(newLinkData);
+                
+                this.processingStats.success++;
+                this.addLogEntry('success', `تم إنشاء: ${linkData.name}`);
+                
+            } catch (error) {
+                this.processingStats.failed++;
+                this.addLogEntry('error', `فشل: ${linkData.name} - ${error.message}`);
+                
+                if (!skipErrors) {
+                    throw error;
+                }
+            }
+            
+            this.processingStats.processed++;
+            this.updateProcessingProgress();
+            
+            // Small delay to prevent overwhelming Firebase
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+    }
+
+    getUrlParam() {
+        const params = {
+            'series': 'halqat-alyawm-min-musalsal',
+            'movie': 'movie',
+            'match': 'match',
+            'recipe': 'recipe',
+            'game': 'game', 
+            'app': 'app',
+            'channel': 'channel',
+            'reels': 'reels'
+        };
+        return params[this.selectedContentType] || this.selectedContentType;
+    }
+
+    updateCurrentItem(linkData) {
+        const currentItemName = document.getElementById('currentItemName');
+        const currentItemUrl = document.getElementById('currentItemUrl');
+        
+        if (currentItemName) currentItemName.textContent = linkData.name;
+        if (currentItemUrl) currentItemUrl.textContent = linkData.originalUrl;
+    }
+
+    updateProcessingProgress() {
+        const { total, processed, success, failed } = this.processingStats;
+        const remaining = total - processed;
+        const percentage = total > 0 ? (processed / total) * 100 : 0;
+        
+        // Update counters
+        document.getElementById('processedCount').textContent = processed;
+        document.getElementById('successCount').textContent = success;
+        document.getElementById('failedCount').textContent = failed;
+        document.getElementById('remainingCount').textContent = remaining;
+        
+        // Update progress bar
+        const progressBar = document.getElementById('bulkProgressBar');
+        if (progressBar) {
+            progressBar.style.width = `${percentage}%`;
+            progressBar.textContent = `${Math.round(percentage)}%`;
+        }
+        
+        // Update progress text
+        const progressText = document.getElementById('progressText');
+        if (progressText) {
+            progressText.textContent = `تمت معالجة ${processed} من ${total} رابط`;
+        }
+    }
+
+    addLogEntry(type, message) {
+        const logContainer = document.getElementById('processingLog');
+        if (!logContainer) return;
+        
+        const timestamp = new Date().toLocaleTimeString('ar-EG');
+        const icons = {
+            success: 'fas fa-check-circle',
+            error: 'fas fa-times-circle',
+            info: 'fas fa-info-circle'
+        };
+        
+        const logEntry = document.createElement('div');
+        logEntry.className = `log-entry ${type}`;
+        logEntry.innerHTML = `
+            <span class="log-timestamp">${timestamp}</span>
+            <i class="${icons[type]} me-2"></i>
+            <span>${message}</span>
+        `;
+        
+        logContainer.appendChild(logEntry);
+        logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    completeProcessing() {
+        const { total, success, failed } = this.processingStats;
+        
+        // Update current item to completed
+        document.getElementById('currentItemName').textContent = 'مكتمل!';
+        document.getElementById('currentItemUrl').textContent = `تم إنشاء ${success} رابط بنجاح`;
+        
+        // Hide spinner
+        document.querySelector('.processing-spinner').style.display = 'none';
+        
+        // Show completion buttons
+        document.getElementById('downloadReport').style.display = 'inline-block';
+        document.getElementById('closeProcessing').style.display = 'inline-block';
+        document.getElementById('cancelProcessing').style.display = 'none';
+        
+        // Show final notification
+        if (failed === 0) {
+            showNotification('success', `تم إنشاء جميع الروابط (${success}) بنجاح!`);
+        } else {
+            showNotification('warning', `تم إنشاء ${success} رابط، فشل في ${failed} رابط`);
+        }
+        
+        // Reload links table
+        if (typeof loadLinks === 'function') {
+            loadLinks();
+        }
+    }
+
+    cancelProcessing() {
+        this.isProcessing = false;
+        showNotification('info', 'تم إيقاف العملية');
+    }
+
+    downloadReport() {
+        const { total, success, failed, processed } = this.processingStats;
+        
+        const report = {
+            timestamp: new Date().toISOString(),
+            contentType: this.selectedContentType,
+            contentTypeName: this.contentTypeNames[this.selectedContentType],
+            fileName: this.uploadedFile?.name,
+            summary: {
+                totalRows: total,
+                processedRows: processed,
+                successfulLinks: success,
+                failedLinks: failed,
+                successRate: ((success / total) * 100).toFixed(2) + '%'
+            },
+            details: this.validData.map((item, index) => ({
+                rowNumber: item.rowNumber,
+                name: item.name,
+                originalUrl: item.originalUrl,
+                status: index < success ? 'success' : 'failed'
+            }))
+        };
+        
+        const reportJson = JSON.stringify(report, null, 2);
+        const blob = new Blob([reportJson], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `turkify_bulk_import_report_${new Date().toISOString().split('T')[0]}.json`;
+        link.click();
+        
+        showNotification('success', 'تم تحميل التقرير بنجاح!');
+    }
+}
+
+// Initialize bulk import system
+let bulkImport;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on admin page
+    const adminPanel = document.getElementById('adminPanel');
+    if (adminPanel) {
+        bulkImport = new BulkLinkImport();
+    }
+});
         
     </script>
 </body>
