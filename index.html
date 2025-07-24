@@ -2405,7 +2405,7 @@
                         <div class="col-md-6">
                             <label class="form-label fw-bold">النطاق المستخدم</label>
                             <select class="form-select" id="bulkDomain">
-                                <option value="turkify.netlify.app">turkify.netlify.app (افتراضي)</option>
+                                <option value="turk.vircel.app">turkify.netlify.app (افتراضي)</option>
                                 <option value="turkii.netlify.app">turkii.netlify.app (مخصص)</option>
                             </select>
                         </div>
@@ -6885,7 +6885,7 @@ class BulkImportSystem {
     constructor() {
         this.currentStep = 1;
         this.selectedContentType = '';
-        this.selectedDomain = 'turkify.netlify.app';
+        this.selectedDomain = 'turk.vircel.app';
         this.uploadedFile = null;
         this.parsedData = [];
         this.validData = [];
@@ -7582,7 +7582,7 @@ class BulkImportSystem {
 
         // إعادة تعيين النموذج
         document.getElementById('bulkContentType').value = '';
-        document.getElementById('bulkDomain').value = 'turkify.netlify.app';
+        document.getElementById('bulkDomain').value = 'turk.vircel.app';
         this.removeFile();
 
         this.goToStep(1);
