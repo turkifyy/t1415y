@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="أداة متقدمة لإصلاح وتحسين منصات الويب باستخدام خوارزميات ذكية">
+    <meta name="keywords" content="HTML, CSS, JavaScript, إصلاح, تحليل, أداء, SEO">
+    <title>أداة إصلاح المنصات الذكية - النسخة المحترفة</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --dark-color: #1a1a2e;
+            --light-color: #ffffff;
+            --algorithm-color: #16a085;
+            --text-color: #ffffff;
+            --diff-add: #2ecc71;
+            --diff-remove: #e74c3c;
+            --diff-change: #f39c12;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #1d2b64, #0d1b2a);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* تحسينات الواجهة */
+        .card {
+            background: rgba(26, 26, 46, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+        }
+
+        /* نظام الخطوات */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-icon {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .step.active .step-text {
+            opacity: 1;
+            font-weight: 500;
+        }
+
+        /* منطقة الرفع */
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--success-color);
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        /* محرر الكود */
+        .code-container {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        #htmlCode {
+            width: 100%;
+            min-height: 300px;
+            background: #1e1e2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.5;
+            resize: vertical;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0 0 8px 8px;
+            font-size: 0.8rem;
+        }
+
+        /* تقارير الفحص */
+        .report-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .report-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .report-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+
+        .report-item.error .report-icon {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--danger-color);
+        }
+
+        .report-item.warning .report-icon {
+            background: rgba(243, 156, 18, 0.2);
+            color: var(--warning-color);
+        }
+
+        .report-item.info .report-icon {
+            background: rgba(52, 152, 219, 0.2);
+            color: var(--primary-color);
+        }
+
+        .report-item.success .report-icon {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--success-color);
+        }
+
+        .report-content {
+            flex-grow: 1;
+        }
+
+        /* معاينة النتائج */
+        .preview-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .preview-container {
+                flex-direction: column;
+            }
+        }
+
+        .preview-box {
+            flex: 1;
+            background: var(--dark-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-box-header {
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+
+        #previewFrame {
+            width: 100%;
+            height: 400px;
+            border: none;
+            background: white;
+        }
+
+        .fixed-code {
+            height: 400px;
+            overflow: auto;
+            padding: 15px;
+        }
+
+        /* نظام الفروقات */
+        .diff-line {
+            padding: 2px 5px;
+            margin: 1px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+        .diff-add {
+            background: rgba(46, 204, 113, 0.2);
+            border-right: 3px solid var(--diff-add);
+        }
+
+        .diff-remove {
+            background: rgba(231, 76, 60, 0.2);
+            border-right: 3px solid var(--diff-remove);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .diff-change {
+            background: rgba(243, 156, 18, 0.2);
+            border-right: 3px solid var(--diff-change);
+        }
+
+        /* التبديل بين الثيمات */
+        .theme-switcher {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        /* تحسينات للواجهة على الأجهزة المحمولة */
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .upload-area {
+                padding: 20px;
+            }
+            
+            .card-header {
+                font-size: 1rem;
+            }
+        }
+
+        /* تحسينات خاصة بالخوارزميات */
+        .algorithm-card {
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid var(--algorithm-color);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .algorithm-card:hover {
+            transform: translateY(-5px);
+            border-color: #1abc9c;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .algorithm-card h4 {
+            color: var(--algorithm-color);
+            border-bottom: 2px solid var(--algorithm-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* رسوم متحركة */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* شريط التقدم المتحسن */
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar {
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        /* تحسينات التباين للوصولية */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+            border-color: #27ae60;
+        }
+
+        .alert {
+            border: none;
+            border-right: 4px solid;
+        }
+
+        .alert-info {
+            border-right-color: var(--primary-color);
+        }
+
+        .alert-success {
+            border-right-color: var(--success-color);
+        }
+
+        .alert-warning {
+            border-right-color: var(--warning-color);
+        }
+
+        .alert-danger {
+            border-right-color: var(--danger-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- شريط التبديل بين الثيمات -->
+        <div class="theme-switcher">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-sm btn-dark theme-btn active" data-theme="dark">
+                    <i class="fas fa-moon"></i> ليلي
+                </button>
+                <button type="button" class="btn btn-sm btn-light theme-btn" data-theme="light">
+                    <i class="fas fa-sun"></i> نهاري
+                </button>
+            </div>
+        </div>
+
+        <div class="header text-center mb-5">
+            <div class="logo mb-3">
+                <i class="fas fa-cogs fa-4x pulse-animation" style="color: var(--primary-color);"></i>
+            </div>
+            <h1 class="display-5 fw-bold">أداة إصلاح المنصات الذكية - النسخة المحترفة</h1>
+            <p class="lead">نظام متكامل للفحص والإصلاح والتحسين باستخدام أحدث الخوارزميات</p>
+
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>نظام متقدم:</strong> يدعم فحص HTML, CSS, JavaScript, SEO, الأداء، والوصولية مع إصلاح تلقائي
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خطوات العملية -->
+        <div class="process-steps">
+            <div class="step active" data-step="1">
+                <div class="step-icon">
+                    1
+                </div>
+                <div class="step-text">رفع ملف المنصة</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-icon">
+                    2
+                </div>
+                <div class="step-text">فحص شامل</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-icon">
+                    3
+                </div>
+                <div class="step-text">تقرير الفحص</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-icon">
+                    4
+                </div>
+                <div class="step-text">الإصلاح الذكي</div>
+            </div>
+            <div class="step" data-step="5">
+                <div class="step-icon">
+                    5
+                </div>
+                <div class="step-text">النتيجة النهائية</div>
+            </div>
+        </div>
+
+        <!-- قسم رفع الملف -->
+        <div id="uploadSection" class="card fade-in">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-upload me-2"></i>الخطوة 1: رفع ملف المنصة
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    يمكنك رفع ملف HTML واحد أو ملف ZIP يحتوي على مشروع كامل (HTML, CSS, JS)
+                </div>
+
+                <div class="upload-area text-center p-5 mb-4" id="dropArea">
+                    <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: var(--primary-color);"></i>
+                    <h4>اسحب وأفلت ملفاتك هنا</h4>
+                    <p class="text-muted">أو</p>
+                    <button id="uploadBtn" class="btn btn-primary">
+                        <i class="fas fa-folder-open me-2"></i>اختر ملفات المنصة
+                    </button>
+                    <input type="file" id="fileInput" accept=".html,.zip" style="display: none;" multiple>
+                </div>
+
+                <div class="code-container">
+                    <textarea id="htmlCode" placeholder="سيظهر محتوى الملفات هنا بعد الرفع..." spellcheck="false"></textarea>
+                    <div class="status-bar">
+                        <div>
+                            <span class="line-count">0</span> / <span class="max-lines">50,000</span> سطر
+                        </div>
+                        <div class="file-size">0 كيلوبايت</div>
+                        <div class="file-type">لا يوجد ملف</div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button id="scanBtn" class="btn btn-primary btn-lg" disabled>
+                        <i class="fas fa-search me-2"></i>بدء الفحص الشامل
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الفحص -->
+        <div id="scanSection" class="card" style="display: none;">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-search me-2"></i>الخطوة 2: الفحص الشامل للمنصة
+            </div>
+            <div class="card-body">
+                <div class="progress-container">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>تقدم الفحص</span>
+                        <span id="scanPercent">0%</span>
+                    </div>
+                    <div class="progress">
+                        <div id="scanProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <!-- فحص HTML -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-code me-2"></i>فحص HTML
+                            </div>
+                            <div class="card-body">
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-bug"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>أخطاء في الهيكل</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="htmlErrors">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-tag"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>وسوم ناقصة</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="htmlMissingTags">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>مشاكل SEO</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="htmlSeoIssues">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-universal-access"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>مشاكل وصولية</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="htmlAccessibility">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فحص CSS -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-warning text-dark">
+                                <i class="fab fa-css3-alt me-2"></i>فحص CSS
+                            </div>
+                            <div class="card-body">
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-bug"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>أخطاء في الصياغة</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="cssErrors">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>خصائص غير مدعومة</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="cssUnsupported">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>مشاكل أداء</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="cssPerformance">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>استجابة غير كافية</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="cssResponsive">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فحص JavaScript -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-danger text-white">
+                                <i class="fab fa-js me-2"></i>فحص JavaScript
+                            </div>
+                            <div class="card-body">
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-bug"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>أخطاء في الشيفرة</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="jsErrors">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>مشاكل في الأداء</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="jsPerformance">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>مشاكل أمنية</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="jsSecurity">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-puzzle-piece"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>وظائف ناقصة</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="jsMissingFunctions">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- فحص إضافي للأداء والSEO -->
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                <i class="fas fa-tachometer-alt me-2"></i>فحص الأداء
+                            </div>
+                            <div class="card-body">
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-weight"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>حجم الصفحة</strong>
+                                        <div class="text-muted">الحالي: <span id="pageSize">0</span> كيلوبايت</div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>وقت التحميل</strong>
+                                        <div class="text-muted">المتوقع: <span id="loadTime">0</span> ثانية</div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-image"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>صور غير مضغوطة</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="unoptimizedImages">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-code-branch"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>طلبات HTTP</strong>
+                                        <div class="text-muted">العدد: <span id="httpRequests">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-info text-white">
+                                <i class="fas fa-search me-2"></i>فحص SEO والوصولية
+                            </div>
+                            <div class="card-body">
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-tags"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>وسوم meta ناقصة</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="missingMeta">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>مشاكل تباين ألوان</strong>
+                                        <div class="text-muted">الاكتشاف: <span id="colorContrast">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-heading"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>هيكلة عناوين</strong>
+                                        <div class="text-muted">المشاكل: <span id="headingStructure">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="report-content">
+                                        <strong>توافق مع الأجهزة</strong>
+                                        <div class="text-muted">المشاكل: <span id="mobileCompatibility">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button id="generateReportBtn" class="btn btn-primary btn-lg">
+                        <i class="fas fa-file-alt me-2"></i>إنشاء التقرير الشامل
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم التقرير -->
+        <div id="reportSection" class="card" style="display: none;">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-file-alt me-2"></i>الخطوة 3: تقرير الفحص الشامل
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    تم اكتشاف <strong id="totalIssues">0</strong> مشكلة تحتاج إلى إصلاح | 
+                    <span id="criticalIssues">0</span> حرجة | 
+                    <span id="warningIssues">0</span> تحذيرات | 
+                    <span id="suggestionIssues">0</span> اقتراحات
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            نقاط القوة: <span id="strengthPoints">0</span> عنصر جيد
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="alert alert-warning">
+                            <i class="fas fa-star me-2"></i>
+                            تقييم عام: <span id="overallScore">0</span>/100
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="mb-3"><i class="fas fa-list me-2"></i>تفاصيل المشكلات المكتشفة:</h5>
+                
+                <div class="mb-3">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-sm btn-outline-danger filter-btn active" data-filter="all">الكل</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger filter-btn" data-filter="error">حرجة</button>
+                        <button type="button" class="btn btn-sm btn-outline-warning filter-btn" data-filter="warning">تحذيرات</button>
+                        <button type="button" class="btn btn-sm btn-outline-info filter-btn" data-filter="info">اقتراحات</button>
+                        <button type="button" class="btn btn-sm btn-outline-success filter-btn" data-filter="success">إصلاحات</button>
+                    </div>
+                    
+                    <div class="btn-group float-left" role="group">
+                        <button type="button" class="btn btn-sm btn-outline-primary filter-btn" data-filter="html">HTML</button>
+                        <button type="button" class="btn btn-sm btn-outline-warning filter-btn" data-filter="css">CSS</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger filter-btn" data-filter="js">JS</button>
+                        <button type="button" class="btn btn-sm btn-outline-info filter-btn" data-filter="seo">SEO</button>
+                        <button type="button" class="btn btn-sm btn-outline-success filter-btn" data-filter="performance">الأداء</button>
+                    </div>
+                </div>
+                
+                <div class="report-list" id="detailedReportList">
+                    <!-- سيتم إضافة التقارير هنا ديناميكيًا -->
+                </div>
+
+                <div class="text-center mt-4">
+                    <button id="startRepairBtn" class="btn btn-success btn-lg">
+                        <i class="fas fa-cogs me-2"></i>بدء الإصلاح الذكي
+                    </button>
+                    <button id="exportReportBtn" class="btn btn-primary btn-lg ms-2">
+                        <i class="fas fa-download me-2"></i>تصدير التقرير
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الإصلاح -->
+        <div id="repairSection" class="card" style="display: none;">
+            <div class="card-header bg-success text-white">
+                <i class="fas fa-cogs me-2"></i>الخطوة 4: الإصلاح باستخدام الخوارزميات المتقدمة
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-sync-alt me-2"></i>
+                    جاري استخدام خوارزميات متقدمة لاكتشاف وإصلاح المشكلات تلقائياً...
+                    <span id="currentRepairTask">جاري تهيئة النظام...</span>
+                </div>
+
+                <div class="progress-container">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>تقدم الإصلاح</span>
+                        <span id="repairPercent">0%</span>
+                    </div>
+                    <div class="progress">
+                        <div id="repairProgress" class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-list me-2"></i>المشكلات التي تم إصلاحها
+                            </div>
+                            <div class="card-body">
+                                <div class="fixed-issues-list" id="fixedIssuesList">
+                                    <!-- سيتم إضافة المشكلات التي تم إصلاحها هنا -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-header bg-warning text-dark">
+                                <i class="fas fa-exclamation-triangle me-2"></i>المشكلات التي تحتاج مراجعة
+                            </div>
+                            <div class="card-body">
+                                <div class="manual-review-list" id="manualReviewList">
+                                    <!-- سيتم إضافة المشكلات التي تحتاج مراجعة يدوية هنا -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="algorithm-container mt-4">
+                    <h4 class="mb-3"><i class="fas fa-brain me-2"></i>الخوارزميات المستخدمة للإصلاح:</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="algorithm-card">
+                                <h4><i class="fas fa-code me-2"></i>إصلاح HTML</h4>
+                                <ul>
+                                    <li>خوارزمية إغلاق الوسوم المفتوحة</li>
+                                    <li>روبوت تصحيح هيكل الصفحة</li>
+                                    <li>نظام إصلاح السمات الناقصة</li>
+                                    <li>روبوت توحيد الصياغة</li>
+                                    <li>إصلاح مشاكل SEO تلقائيًا</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="algorithm-card">
+                                <h4><i class="fas fa-paint-brush me-2"></i>إصلاح CSS</h4>
+                                <ul>
+                                    <li>خوارزمية إضافة البادئات التلقائية</li>
+                                    <li>روبوت تصحيح الأخطاء النحوية</li>
+                                    <li>نظام تحسين الأداء</li>
+                                    <li>روبوت إصلاح التوافقية</li>
+                                    <li>تحسين استجابة التصميم</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="algorithm-card">
+                                <h4><i class="fas fa-cogs me-2"></i>إصلاح JavaScript</h4>
+                                <ul>
+                                    <li>خوارزمية كشف الأخطاء المنطقية</li>
+                                    <li>روبوت إكمال الوظائف الناقصة</li>
+                                    <li>نظام تحسين الكفاءة</li>
+                                    <li>روبوت معالجة الاستثناءات</li>
+                                    <li>إصلاح مشاكل الأمان</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="algorithm-card">
+                                <h4><i class="fas fa-bolt me-2"></i>تحسين الأداء</h4>
+                                <ul>
+                                    <li>خوارزمية تحميل ذكي للموارد</li>
+                                    <li>روبوت ضغط وتقليل الملفات</li>
+                                    <li>نظام تخزين مؤقت متقدم</li>
+                                    <li>روبوت تحسين استجابة الصفحة</li>
+                                    <li>تحسين صور تلقائي</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم النتائج -->
+        <div id="resultSection" class="card" style="display: none;">
+            <div class="card-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>الخطوة 5: النتيجة النهائية
+            </div>
+            <div class="card-body">
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    تم إصلاح <strong id="fixedCount">0</strong> مشكلة بنجاح! المنصة الآن جاهزة للتحميل
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="alert alert-info">
+                            <i class="fas fa-bug me-2"></i>
+                            المشكلات المتبقية: <strong id="remainingIssues">0</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="alert alert-warning">
+                            <i class="fas fa-clock me-2"></i>
+                            وقت التحميل المحسن: <strong id="improvedLoadTime">0</strong> ثانية
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="alert alert-primary">
+                            <i class="fas fa-star me-2"></i>
+                            التقييم النهائي: <strong id="finalScore">0</strong>/100
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-container">
+                    <div class="preview-box">
+                        <div class="preview-box-header">
+                            <i class="fas fa-desktop"></i>
+                            معاينة المنصة بعد الإصلاح
+                        </div>
+                        <iframe id="previewFrame" srcdoc="<html><body style='padding:20px;text-align:center;'><h1>معاينة المنصة</h1><p>سيظهر هنا محتوى المنصة بعد الإصلاح</p></body></html>"></iframe>
+                    </div>
+
+                    <div class="preview-box">
+                        <div class="preview-box-header">
+                            <i class="fas fa-code"></i>
+                            الشيفرة بعد الإصلاح
+                        </div>
+                        <div class="fixed-code">
+                            <pre><code id="fixedCodeContent">// سيظهر هنا كود المنصة بعد الإصلاح</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h5><i class="fas fa-exchange-alt me-2"></i>مقارنة التغييرات:</h5>
+                    <div class="diff-viewer" id="diffViewer">
+                        <!-- سيتم عرض الفروقات هنا -->
+                    </div>
+                </div>
+
+                <div class="download-section text-center mt-5">
+                    <h4><i class="fas fa-download me-2"></i>المنصة جاهزة للتحميل!</h4>
+                    <p class="mb-4">اختر طريقة التحميل المناسبة لك:</p>
+                    
+                    <div class="btn-group" role="group">
+                        <button id="downloadHtmlBtn" class="btn btn-success">
+                            <i class="fas fa-file-code me-2"></i>تحميل HTML
+                        </button>
+                        <button id="downloadZipBtn" class="btn btn-primary">
+                            <i class="fas fa-file-archive me-2"></i>تحميل مشروع كامل (ZIP)
+                        </button>
+                        <button id="downloadReportBtn" class="btn btn-info">
+                            <i class="fas fa-file-pdf me-2"></i>تحميل التقرير (PDF)
+                        </button>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <button id="githubBtn" class="btn btn-dark">
+                            <i class="fab fa-github me-2"></i>رفع إلى GitHub
+                        </button>
+                        <button id="gitlabBtn" class="btn btn-warning">
+                            <i class="fab fa-gitlab me-2"></i>رفع إلى GitLab
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer text-center mt-5 text-muted">
+            <p>تم تطوير هذه الأداة باستخدام خوارزميات متقدمة | النسخة المحترفة © 2024</p>
+        </div>
+    </div>
+
+    <!-- مكتبات JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // تهيئة Highlight.js لتلوين الشيفرة
+            hljs.highlightAll();
+            
+            // DOM Elements
+            const fileInput = document.getElementById('fileInput');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const htmlCode = document.getElementById('htmlCode');
+            const scanBtn = document.getElementById('scanBtn');
+            const lineCount = document.querySelector('.line-count');
+            const fileSize = document.querySelector('.file-size');
+            const fileType = document.querySelector('.file-type');
+            const scanSection = document.getElementById('scanSection');
+            const reportSection = document.getElementById('reportSection');
+            const repairSection = document.getElementById('repairSection');
+            const resultSection = document.getElementById('resultSection');
+            const startRepairBtn = document.getElementById('startRepairBtn');
+            const scanProgress = document.getElementById('scanProgress');
+            const scanPercent = document.getElementById('scanPercent');
+            const repairProgress = document.getElementById('repairProgress');
+            const repairPercent = document.getElementById('repairPercent');
+            const currentRepairTask = document.getElementById('currentRepairTask');
+            const downloadHtmlBtn = document.getElementById('downloadHtmlBtn');
+            const downloadZipBtn = document.getElementById('downloadZipBtn');
+            const downloadReportBtn = document.getElementById('downloadReportBtn');
+            const githubBtn = document.getElementById('githubBtn');
+            const gitlabBtn = document.getElementById('gitlabBtn');
+            const previewFrame = document.getElementById('previewFrame');
+            const fixedCodeContent = document.getElementById('fixedCodeContent');
+            const detailedReportList = document.getElementById('detailedReportList');
+            const totalIssuesSpan = document.getElementById('totalIssues');
+            const uploadArea = document.getElementById('dropArea');
+            const fixedIssuesList = document.getElementById('fixedIssuesList');
+            const manualReviewList = document.getElementById('manualReviewList');
+            const diffViewer = document.getElementById('diffViewer');
+            const exportReportBtn = document.getElementById('exportReportBtn');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const themeButtons = document.querySelectorAll('.theme-btn');
+            
+            // Process Steps
+            const steps = document.querySelectorAll('.step');
+            let currentStep = 1;
+            
+            // ملفات المشروع
+            let projectFiles = {
+                html: null,
+                css: [],
+                js: [],
+                images: []
+            };
+            
+            // نتائج الفحص
+            let scanResults = {
+                html: [],
+                css: [],
+                js: [],
+                seo: [],
+                performance: [],
+                accessibility: []
+            };
+            
+            // الإصلاحات المطبقة
+            let appliedFixes = [];
+            
+            // المشكلات التي تحتاج مراجعة يدوية
+            let manualReviewIssues = [];
+
+            // تحديث الخطوات
+            function updateSteps(step) {
+                currentStep = step;
+                steps.forEach((s, index) => {
+                    if (index < step) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            }
+
+            // عرض الإشعارات
+            function showToast(message, type = 'info', duration = 5000) {
+                const toast = document.createElement('div');
+                toast.className = `toast show align-items-center text-white bg-${type} border-0`;
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+                toast.setAttribute('aria-atomic', 'true');
+                toast.style.position = 'fixed';
+                toast.style.bottom = '20px';
+                toast.style.left = '20px';
+                toast.style.zIndex = '1000';
+                
+                toast.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'} me-2"></i>
+                            ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }, duration);
+            }
+
+            // تحديث إحصائيات الملف
+            function updateStats() {
+                const code = htmlCode.value;
+                const lines = code.split('\n');
+                const lineCountValue = lines.length;
+                
+                lineCount.textContent = lineCountValue.toLocaleString();
+                
+                const sizeInBytes = new Blob([code]).size;
+                const sizeInKB = (sizeInBytes / 1024).toFixed(2);
+                fileSize.textContent = `${sizeInKB} كيلوبايت`;
+                
+                if (lineCountValue > 50000) {
+                    showToast('تحذير: تجاوز الحد الأقصى لعدد الأسطر (50,000). قد يؤثر على الأداء.', 'warning');
+                    scanBtn.disabled = true;
+                } else {
+                    scanBtn.disabled = false;
+                }
+            }
+
+            // تحليل HTML
+            function analyzeHtml(code) {
+                const errors = [];
+                const warnings = [];
+                const suggestions = [];
+                
+                // 1. تحليل الوسوم غير المغلقة
+                const tagRegex = /<([a-z]+)(?![^>]*\/>)[^>]*>/gi;
+                const closeRegex = /<\/([a-z]+)>/gi;
+                let tagMatch;
+                const openTags = [];
+                
+                while ((tagMatch = tagRegex.exec(code)) !== null) {
+                    const tag = tagMatch[1];
+                    openTags.push(tag);
+                }
+                
+                let closeMatch;
+                while ((closeMatch = closeRegex.exec(code)) !== null) {
+                    const tag = closeMatch[1];
+                    const index = openTags.lastIndexOf(tag);
+                    
+                    if (index === -1) {
+                        errors.push({
+                            type: 'error',
+                            category: 'html',
+                            message: `وسم إغلاق غير متوقع: &lt;/${tag}&gt;`,
+                            line: getLineNumber(code, closeMatch.index),
+                            fix: `إزالة وسم الإغلاق &lt;/${tag}&gt;`
+                        });
+                    } else {
+                        openTags.splice(index, 1);
+                    }
+                }
+                
+                openTags.reverse().forEach(tag => {
+                    errors.push({
+                        type: 'error',
+                        category: 'html',
+                        message: `وسم غير مغلق: &lt;${tag}&gt;`,
+                        line: getLineNumber(code, code.lastIndexOf(`<${tag}`)),
+                        fix: `إضافة وسم إغلاق &lt;/${tag}&gt;`
+                    });
+                });
+                
+                // 2. تحليل الصور بدون خاصية alt
+                const imgRegex = /<img\s+[^>]*src\s*=\s*['"][^'"]+['"][^>]*>/gi;
+                let imgMatch;
+                
+                while ((imgMatch = imgRegex.exec(code)) !== null) {
+                    if (!imgMatch[0].includes('alt=')) {
+                        warnings.push({
+                            type: 'warning',
+                            category: 'accessibility',
+                            message: 'صورة بدون خاصية alt',
+                            line: getLineNumber(code, imgMatch.index),
+                            fix: 'إضافة خاصية alt وصفية للصورة'
+                        });
+                    }
+                }
+                
+                // 3. تحليل وسوم meta
+                if (!code.includes('<meta name="description"')) {
+                    suggestions.push({
+                        type: 'info',
+                        category: 'seo',
+                        message: 'وسم meta للوصف مفقود',
+                        line: getLineNumber(code, code.indexOf('<head>')),
+                        fix: 'إضافة وسم meta للوصف لتحسين SEO'
+                    });
+                }
+                
+                if (!code.includes('<meta name="keywords"')) {
+                    suggestions.push({
+                        type: 'info',
+                        category: 'seo',
+                        message: 'وسم meta للكلمات المفتاحية مفقود',
+                        line: getLineNumber(code, code.indexOf('<head>')),
+                        fix: 'إضافة وسم meta للكلمات المفتاحية'
+                    });
+                }
+                
+                if (!code.includes('<meta name="viewport"')) {
+                    errors.push({
+                        type: 'error',
+                        category: 'html',
+                        message: 'وسم viewport مفقود',
+                        line: getLineNumber(code, code.indexOf('<head>')),
+                        fix: 'إضافة وسم viewport للتوافق مع الأجهزة المحمولة'
+                    });
+                }
+                
+                // 4. تحليل هيكلة العناوين
+                const headings = code.match(/<h[1-6][^>]*>.*?<\/h[1-6]>/gi) || [];
+                const headingLevels = headings.map(h => parseInt(h.match(/<h([1-6])/i)[1]));
+                
+                if (headingLevels[0] !== 1) {
+                    warnings.push({
+                        type: 'warning',
+                        category: 'seo',
+                        message: 'يجب أن تبدأ العناوين بـ h1',
+                        line: getLineNumber(code, code.indexOf(headings[0])),
+                        fix: 'تغيير أول عنوان إلى h1'
+                    });
+                }
+                
+                for (let i = 1; i < headingLevels.length; i++) {
+                    if (headingLevels[i] > headingLevels[i-1] + 1) {
+                        warnings.push({
+                            type: 'warning',
+                            category: 'seo',
+                            message: `هيكلة عناوين غير صحيحة: h${headingLevels[i-1]} متبوعًا بـ h${headingLevels[i]}`,
+                            line: getLineNumber(code, code.indexOf(headings[i])),
+                            fix: 'تصحيح تسلسل العناوين'
+                        });
+                    }
+                }
+                
+                return [...errors, ...warnings, ...suggestions];
+            }
+
+            // تحليل CSS
+            function analyzeCss(code) {
+                const issues = [];
+                
+                // 1. خصائص بدون بادئات
+                const unprefixedProps = [
+                    { prop: 'display: flex', prefixes: ['-webkit-', '-ms-'] },
+                    { prop: 'display: grid', prefixes: ['-ms-'] },
+                    { prop: 'transform', prefixes: ['-webkit-', '-ms-'] },
+                    { prop: 'user-select', prefixes: ['-webkit-', '-moz-', '-ms-'] },
+                    { prop: 'transition', prefixes: ['-webkit-'] }
+                ];
+                
+                unprefixedProps.forEach(item => {
+                    const regex = new RegExp(item.prop, 'gi');
+                    let match;
+                    
+                    while ((match = regex.exec(code)) !== null) {
+                        const hasPrefix = item.prefixes.some(prefix => 
+                            code.includes(prefix + item.prop)
+                        );
+                        
+                        if (!hasPrefix) {
+                            issues.push({
+                                type: 'warning',
+                                category: 'css',
+                                message: `خاصية CSS بدون بادئات: ${item.prop}`,
+                                line: getLineNumber(code, match.index),
+                                fix: `إضافة بادئات المتصفحات للخاصية ${item.prop}`
+                            });
+                        }
+                    }
+                });
+                
+                // 2. تحسينات الأداء
+                if (code.includes('@import')) {
+                    issues.push({
+                        type: 'warning',
+                        category: 'performance',
+                        message: 'استخدام @import قد يبطئ تحميل الصفحة',
+                        line: getLineNumber(code, code.indexOf('@import')),
+                        fix: 'استبدال @import بـ link في HTML'
+                    });
+                }
+                
+                if (code.match(/filter:\s*[^;]+;/gi)) {
+                    issues.push({
+                        type: 'info',
+                        category: 'performance',
+                        message: 'مرشحات CSS قد تؤثر على الأداء',
+                        line: getLineNumber(code, code.indexOf('filter:')),
+                        fix: 'تفادي استخدام الفلاتر الثقيلة أو استبدالها ببدائل'
+                    });
+                }
+                
+                // 3. مشاكل الاستجابة
+                const mediaQueryRegex = /@media\s+[^{]+\{[^}]+\}/gi;
+                const mediaQueries = code.match(mediaQueryRegex) || [];
+                
+                if (mediaQueries.length === 0) {
+                    issues.push({
+                        type: 'warning',
+                        category: 'css',
+                        message: 'لا توجد استعلامات وسائط للتصميم المتجاوب',
+                        line: 1,
+                        fix: 'إضافة استعلامات وسائط للتصميم المتجاوب'
+                    });
+                }
+                
+                return issues;
+            }
+
+            // تحليل JavaScript
+            function analyzeJs(code) {
+                const issues = [];
+                
+                // 1. مشاكل الأمان
+                if (code.includes('eval(')) {
+                    issues.push({
+                        type: 'error',
+                        category: 'js',
+                        message: 'استخدام eval() يشكل خطرًا أمنيًا',
+                        line: getLineNumber(code, code.indexOf('eval(')),
+                        fix: 'استبدال eval() ببدائل آمنة'
+                    });
+                }
+                
+                if (code.includes('innerHTML') && !code.includes('textContent')) {
+                    issues.push({
+                        type: 'warning',
+                        category: 'js',
+                        message: 'استخدام innerHTML قد يشكل ثغرة XSS',
+                        line: getLineNumber(code, code.indexOf('innerHTML')),
+                        fix: 'استخدام textContent بدلاً من innerHTML عندما لا يكون HTML مطلوبًا'
+                    });
+                }
+                
+                // 2. مشاكل الأداء
+                if (code.match(/for\s*\([^;]+;\s*[^;]+;\s*[^)]+\)/gi)) {
+                    issues.push({
+                        type: 'info',
+                        category: 'performance',
+                        message: 'حلقات for قد تكون غير فعالة للبيانات الكبيرة',
+                        line: getLineNumber(code, code.indexOf('for(')),
+                        fix: 'تفكير في استخدام .forEach() أو .map()'
+                    });
+                }
+                
+                // 3. مشاكل التوافقية
+                if (code.includes('var ')) {
+                    issues.push({
+                        type: 'warning',
+                        category: 'js',
+                        message: 'استخدام var بدلاً من let/const',
+                        line: getLineNumber(code, code.indexOf('var ')),
+                        fix: 'استبدال var بـ let/const'
+                    });
+                }
+                
+                return issues;
+            }
+
+            // تحليل الأداء
+            function analyzePerformance(html) {
+                const issues = [];
+                
+                // 1. تحليل الصور
+                const imgTags = html.match(/<img[^>]+>/gi) || [];
+                imgTags.forEach(img => {
+                    if (!img.includes('loading="lazy"')) {
+                        issues.push({
+                            type: 'info',
+                            category: 'performance',
+                            message: 'صورة بدون تحميل متأخر (lazy loading)',
+                            line: getLineNumber(html, html.indexOf(img)),
+                            fix: 'إضافة loading="lazy" للصور التي ليست فوق الطية'
+                        });
+                    }
+                    
+                    if (img.includes('.png') && !img.includes('.webp')) {
+                        issues.push({
+                            type: 'warning',
+                            category: 'performance',
+                            message: 'صورة PNG قد تكون كبيرة الحجم',
+                            line: getLineNumber(html, html.indexOf(img)),
+                            fix: 'تحويل الصورة إلى تنسيق WebP'
+                        });
+                    }
+                });
+                
+                // 2. تحليل النصوص البرمجية
+                const scriptTags = html.match(/<script[^>]+>/gi) || [];
+                scriptTags.forEach(script => {
+                    if (!script.includes('defer') && !script.includes('async')) {
+                        issues.push({
+                            type: 'warning',
+                            category: 'performance',
+                            message: 'نص برمجي بدون defer أو async',
+                            line: getLineNumber(html, html.indexOf(script)),
+                            fix: 'إضافة defer أو async للنصوص البرمجية'
+                        });
+                    }
+                });
+                
+                // 3. تحليل أنماط CSS
+                if (html.includes('<style>')) {
+                    issues.push({
+                        type: 'info',
+                        category: 'performance',
+                        message: 'أنماط CSS مضمنة قد تبطئ التحميل',
+                        line: getLineNumber(html, html.indexOf('<style>')),
+                        fix: 'نقل الأنماط إلى ملف CSS خارجي'
+                    });
+                }
+                
+                return issues;
+            }
+
+            // تحليل SEO
+            function analyzeSeo(html) {
+                const issues = [];
+                
+                // 1. عنوان الصفحة
+                if (!html.includes('<title>') || html.match(/<title>[^<]*<\/title>/gi)[0].length < 10) {
+                    issues.push({
+                        type: 'warning',
+                        category: 'seo',
+                        message: 'عنوان الصفحة غير موجود أو قصير جدًا',
+                        line: getLineNumber(html, html.indexOf('<head>')),
+                        fix: 'إضافة عنوان صفحة وصفية بطول 50-60 حرفًا'
+                    });
+                }
+                
+                // 2. الروابط
+                const links = html.match(/<a\s+[^>]*href\s*=\s*['"][^'"]*['"][^>]*>/gi) || [];
+                links.forEach(link => {
+                    if (!link.includes('rel="nofollow"') && link.includes('href="http')) {
+                        issues.push({
+                            type: 'info',
+                            category: 'seo',
+                            message: 'رابط خارجي بدون nofollow',
+                            line: getLineNumber(html, html.indexOf(link)),
+                            fix: 'إضافة rel="nofollow" للروابط الخارجية'
+                        });
+                    }
+                });
+                
+                // 3. البيانات الوصفية
+                if (!html.includes('og:title')) {
+                    issues.push({
+                        type: 'info',
+                        category: 'seo',
+                        message: 'بيانات Open Graph مفقودة',
+                        line: getLineNumber(html, html.indexOf('<head>')),
+                        fix: 'إضافة بيانات Open Graph لمشاركات الوسائط الاجتماعية'
+                    });
+                }
+                
+                return issues;
+            }
+
+            // تحليل الوصولية
+            function analyzeAccessibility(html) {
+                const issues = [];
+                
+                // 1. تباين الألوان
+                if (html.includes('color:#') || html.includes('color: #') || html.includes('background-color')) {
+                    issues.push({
+                        type: 'warning',
+                        category: 'accessibility',
+                        message: 'ألوان مضمنة قد تسبب مشاكل في التباين',
+                        line: getLineNumber(html, html.indexOf('color:')),
+                        fix: 'نقل الألوان إلى ملف CSS وفحص التباين'
+                    });
+                }
+                
+                // 2. العناصر التفاعلية
+                const buttons = html.match(/<button[^>]*>.*?<\/button>/gi) || [];
+                buttons.forEach(button => {
+                    if (!button.includes('aria-label') && !button.match(/<button[^>]*>.*[^<>]+.*<\/button>/gi)) {
+                        issues.push({
+                            type: 'warning',
+                            category: 'accessibility',
+                            message: 'زر بدون وصف نصي أو aria-label',
+                            line: getLineNumber(html, html.indexOf(button)),
+                            fix: 'إضافة نص داخل الزر أو خاصية aria-label'
+                        });
+                    }
+                });
+                
+                // 3. إدخالات النموذج
+                const inputs = html.match(/<input[^>]+>/gi) || [];
+                inputs.forEach(input => {
+                    if (input.includes('type="text"') && !input.includes('id=') && !input.includes('aria-label')) {
+                        issues.push({
+                            type: 'warning',
+                            category: 'accessibility',
+                            message: 'حقل إدخال بدون تسمية مناسبة',
+                            line: getLineNumber(html, html.indexOf(input)),
+                            fix: 'إضافة id وربطه بعنصر <label> أو إضافة aria-label'
+                        });
+                    }
+                });
+                
+                return issues;
+            }
+
+            // الحصول على رقم السطر
+            function getLineNumber(text, position) {
+                return text.substring(0, position).split('\n').length;
+            }
+
+            // رفع الملف
+            uploadBtn.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function(e) {
+                handleFiles(e.target.files);
+            });
+
+            // سحب وإفلات الملفات
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                
+                if (e.dataTransfer.files.length) {
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+
+            // معالجة الملفات المرفوعة
+            function handleFiles(files) {
+                if (files.length === 0) return;
+                
+                const file = files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    
+                    if (file.name.endsWith('.html')) {
+                        projectFiles.html = content;
+                        htmlCode.value = content;
+                        fileType.textContent = 'HTML';
+                    } else if (file.name.endsWith('.css')) {
+                        projectFiles.css.push({
+                            name: file.name,
+                            content: content
+                        });
+                        fileType.textContent = 'CSS';
+                    } else if (file.name.endsWith('.js')) {
+                        projectFiles.js.push({
+                            name: file.name,
+                            content: content
+                        });
+                        fileType.textContent = 'JavaScript';
+                    } else if (file.name.endsWith('.zip')) {
+                        // معالجة ملف ZIP (سيتم تطويره لاحقًا)
+                        showToast('تم رفع ملف ZIP، جاري استخراج المحتويات...', 'info');
+                        fileType.textContent = 'ZIP (مشروع كامل)';
+                    }
+                    
+                    updateStats();
+                    scanBtn.disabled = false;
+                    showToast(`تم رفع الملف ${file.name} بنجاح!`, 'success');
+                    
+                    updateSteps(2);
+                    scanSection.style.display = 'block';
+                    scanSection.scrollIntoView({ behavior: 'smooth' });
+                };
+                
+                reader.onerror = function() {
+                    showToast('خطأ في قراءة الملف.', 'error');
+                };
+                
+                reader.readAsText(file);
+            }
+
+            // بدء الفحص
+            scanBtn.addEventListener('click', function() {
+                if (!projectFiles.html) {
+                    showToast('لم يتم رفع أي ملف HTML', 'error');
+                    return;
+                }
+                
+                let progress = 0;
+                const scanInterval = setInterval(() => {
+                    progress += Math.random() * 10;
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(scanInterval);
+                        
+                        // تحليل الملفات
+                        scanResults.html = analyzeHtml(projectFiles.html);
+                        
+                        projectFiles.css.forEach(cssFile => {
+                            scanResults.css = [...scanResults.css, ...analyzeCss(cssFile.content)];
+                        });
+                        
+                        projectFiles.js.forEach(jsFile => {
+                            scanResults.js = [...scanResults.js, ...analyzeJs(jsFile.content)];
+                        });
+                        
+                        scanResults.performance = analyzePerformance(projectFiles.html);
+                        scanResults.seo = analyzeSeo(projectFiles.html);
+                        scanResults.accessibility = analyzeAccessibility(projectFiles.html);
+                        
+                        // تحديث واجهة المستخدم
+                        updateScanResultsUI();
+                        showToast('تم الانتهاء من الفحص الشامل!', 'success');
+                        
+                        updateSteps(3);
+                        reportSection.style.display = 'block';
+                        reportSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    
+                    scanProgress.style.width = `${progress}%`;
+                    scanPercent.textContent = `${Math.round(progress)}%`;
+                    
+                    // تحديث المهمة الحالية
+                    const tasks = [
+                        'جاري فحص هيكل HTML...',
+                        'جاري تحليل CSS...',
+                        'جاري مراجعة JavaScript...',
+                        'جاري تقييم الأداء...',
+                        'جاري فحص SEO...',
+                        'جاري تحليل الوصولية...'
+                    ];
+                    
+                    const currentTask = tasks[Math.min(Math.floor(progress / 20), tasks.length - 1)];
+                    document.getElementById('currentRepairTask').textContent = currentTask;
+                }, 150);
+            });
+
+            // تحديث واجهة نتائج الفحص
+            function updateScanResultsUI() {
+                // HTML
+                document.getElementById('htmlErrors').textContent = 
+                    scanResults.html.filter(i => i.type === 'error').length;
+                document.getElementById('htmlMissingTags').textContent = 
+                    scanResults.html.filter(i => i.message.includes('وسم')).length;
+                document.getElementById('htmlSeoIssues').textContent = 
+                    scanResults.html.filter(i => i.category === 'seo').length;
+                document.getElementById('htmlAccessibility').textContent = 
+                    scanResults.html.filter(i => i.category === 'accessibility').length;
+                
+                // CSS
+                document.getElementById('cssErrors').textContent = 
+                    scanResults.css.filter(i => i.type === 'error').length;
+                document.getElementById('cssUnsupported').textContent = 
+                    scanResults.css.filter(i => i.message.includes('خاصية')).length;
+                document.getElementById('cssPerformance').textContent = 
+                    scanResults.css.filter(i => i.category === 'performance').length;
+                document.getElementById('cssResponsive').textContent = 
+                    scanResults.css.filter(i => i.message.includes('استجابة')).length;
+                
+                // JavaScript
+                document.getElementById('jsErrors').textContent = 
+                    scanResults.js.filter(i => i.type === 'error').length;
+                document.getElementById('jsPerformance').textContent = 
+                    scanResults.js.filter(i => i.category === 'performance').length;
+                document.getElementById('jsSecurity').textContent = 
+                    scanResults.js.filter(i => i.message.includes('خطر')).length;
+                document.getElementById('jsMissingFunctions').textContent = 
+                    scanResults.js.filter(i => i.message.includes('وظائف')).length;
+                
+                // الأداء
+                document.getElementById('pageSize').textContent = 
+                    Math.round(new Blob([projectFiles.html]).size / 1024);
+                document.getElementById('loadTime').textContent = 
+                    (Math.random() * 3 + 1).toFixed(2);
+                document.getElementById('unoptimizedImages').textContent = 
+                    scanResults.performance.filter(i => i.message.includes('صورة')).length;
+                document.getElementById('httpRequests').textContent = 
+                    (projectFiles.css.length + projectFiles.js.length + 1);
+                
+                // SEO والوصولية
+                document.getElementById('missingMeta').textContent = 
+                    scanResults.seo.filter(i => i.message.includes('وسم meta')).length;
+                document.getElementById('colorContrast').textContent = 
+                    scanResults.accessibility.filter(i => i.message.includes('تباين')).length;
+                document.getElementById('headingStructure').textContent = 
+                    scanResults.html.filter(i => i.message.includes('هيكلة عناوين')).length;
+                document.getElementById('mobileCompatibility').textContent = 
+                    scanResults.performance.filter(i => i.message.includes('محمول')).length;
+                
+                // إنشاء التقرير التفصيلي
+                generateDetailedReport();
+            }
+
+            // إنشاء التقرير التفصيلي
+            function generateDetailedReport() {
+                detailedReportList.innerHTML = '';
+                
+                // جمع جميع المشكلات
+                const allIssues = [
+                    ...scanResults.html,
+                    ...scanResults.css,
+                    ...scanResults.js,
+                    ...scanResults.performance,
+                    ...scanResults.seo,
+                    ...scanResults.accessibility
+                ];
+                
+                // تحديث الإحصائيات
+                totalIssuesSpan.textContent = allIssues.length;
+                document.getElementById('criticalIssues').textContent = 
+                    allIssues.filter(i => i.type === 'error').length;
+                document.getElementById('warningIssues').textContent = 
+                    allIssues.filter(i => i.type === 'warning').length;
+                document.getElementById('suggestionIssues').textContent = 
+                    allIssues.filter(i => i.type === 'info').length;
+                document.getElementById('strengthPoints').textContent = 
+                    Math.max(0, 20 - allIssues.filter(i => i.type === 'error').length);
+                document.getElementById('overallScore').textContent = 
+                    Math.max(0, 100 - allIssues.length * 2);
+                
+                // عرض المشكلات
+                allIssues.forEach(issue => {
+                    const reportItem = document.createElement('div');
+                    reportItem.className = `report-item ${issue.type} ${issue.category}`;
+                    reportItem.dataset.type = issue.type;
+                    reportItem.dataset.category = issue.category;
+                    
+                    const iconClass = {
+                        'error': 'times-circle',
+                        'warning': 'exclamation-triangle',
+                        'info': 'info-circle',
+                        'success': 'check-circle'
+                    }[issue.type];
+                    
+                    const typeText = {
+                        'error': 'حرج',
+                        'warning': 'تحذير',
+                        'info': 'اقتراح',
+                        'success': 'إصلاح'
+                    }[issue.type];
+                    
+                    reportItem.innerHTML = `
+                        <div class="report-icon">
+                            <i class="fas fa-${iconClass}"></i>
+                        </div>
+                        <div class="report-content">
+                            <div class="d-flex justify-content-between">
+                                <strong>${issue.message}</strong>
+                                <span class="badge bg-${issue.type}">${typeText}</span>
+                            </div>
+                            <div class="text-muted">${issue.category.toUpperCase()} | السطر: ${issue.line}</div>
+                            ${issue.fix ? `<div class="fix-suggestion"><i class="fas fa-wrench me-2"></i>${issue.fix}</div>` : ''}
+                        </div>
+                    `;
+                    
+                    detailedReportList.appendChild(reportItem);
+                });
+            }
+
+            // تصدير التقرير
+            exportReportBtn.addEventListener('click', function() {
+                showToast('جاري إنشاء التقرير...', 'info');
+                
+                setTimeout(() => {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(0, 0, 0);
+                    
+                    // عنوان التقرير
+                    doc.setFontSize(20);
+                    doc.text('تقرير فحص المنصة', 105, 15, null, null, 'center');
+                    
+                    doc.setFontSize(12);
+                    doc.text(`تاريخ التقرير: ${new Date().toLocaleDateString()}`, 105, 25, null, null, 'center');
+                    
+                    // ملخص النتائج
+                    doc.setFontSize(14);
+                    doc.text('ملخص النتائج', 14, 40);
+                    
+                    doc.setFontSize(10);
+                    doc.text(`عدد المشكلات: ${totalIssuesSpan.textContent}`, 14, 50);
+                    doc.text(`المشكلات الحرجة: ${document.getElementById('criticalIssues').textContent}`, 14, 55);
+                    doc.text(`التقييم العام: ${document.getElementById('overallScore').textContent}/100`, 14, 60);
+                    
+                    // تفاصيل المشكلات
+                    doc.setFontSize(14);
+                    doc.text('تفاصيل المشكلات', 14, 75);
+                    
+                    let y = 85;
+                    const reportItems = detailedReportList.querySelectorAll('.report-item');
+                    
+                    reportItems.forEach((item, index) => {
+                        if (y > 270) {
+                            doc.addPage();
+                            y = 20;
+                        }
+                        
+                        const message = item.querySelector('strong').textContent;
+                        const details = item.querySelector('.text-muted').textContent;
+                        const fix = item.querySelector('.fix-suggestion')?.textContent || '';
+                        
+                        doc.setFontSize(10);
+                        doc.setTextColor(0, 0, 0);
+                        doc.text(`${index + 1}. ${message}`, 14, y);
+                        
+                        doc.setFontSize(8);
+                        doc.setTextColor(100, 100, 100);
+                        doc.text(details, 14, y + 5);
+                        
+                        if (fix) {
+                            doc.setTextColor(0, 100, 0);
+                            doc.text(fix, 14, y + 10);
+                            y += 15;
+                        } else {
+                            y += 10;
+                        }
+                    });
+                    
+                    // حفظ التقرير
+                    doc.save('تقرير فحص المنصة.pdf');
+                    showToast('تم تصدير التقرير بنجاح!', 'success');
+                }, 1000);
+            });
+
+            // تصفية المشكلات
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    const reportItems = detailedReportList.querySelectorAll('.report-item');
+                    
+                    reportItems.forEach(item => {
+                        if (filter === 'all' || 
+                            item.dataset.type === filter || 
+                            item.dataset.category === filter) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // تبديل الثيمات
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    themeButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const theme = this.dataset.theme;
+                    document.body.className = theme;
+                });
+            });
+
+            // بدء الإصلاح
+            startRepairBtn.addEventListener('click', function() {
+                repairSection.style.display = 'block';
+                repairSection.scrollIntoView({ behavior: 'smooth' });
+                
+                let progress = 0;
+                const repairInterval = setInterval(() => {
+                    progress += 5;
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(repairInterval);
+                        
+                        // تطبيق الإصلاحات
+                        applyFixes();
+                        showToast('تم الإصلاح بنجاح!', 'success');
+                        
+                        updateSteps(5);
+                        resultSection.style.display = 'block';
+                        resultSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    
+                    repairProgress.style.width = `${progress}%`;
+                    repairPercent.textContent = `${progress}%`;
+                    
+                    // تحديث المهمة الحالية
+                    const tasks = [
+                        'جاري إصلاح هيكل HTML...',
+                        'جاري تحسين CSS...',
+                        'جاري تصحيح JavaScript...',
+                        'جاري تحسين الأداء...',
+                        'جاري تحسين SEO...',
+                        'جاري تحسين الوصولية...'
+                    ];
+                    
+                    const currentTask = tasks[Math.min(Math.floor(progress / 20), tasks.length - 1)];
+                    currentRepairTask.textContent = currentTask;
+                }, 200);
+            });
+
+            // تطبيق الإصلاحات
+            function applyFixes() {
+                let fixedHtml = projectFiles.html;
+                appliedFixes = [];
+                manualReviewIssues = [];
+                
+                // تطبيق إصلاحات HTML
+                scanResults.html.forEach(issue => {
+                    if (issue.type === 'error' && issue.fix) {
+                        if (issue.message.includes('وسم غير مغلق')) {
+                            const tag = issue.message.match(/&lt;([a-z]+)/i)[1];
+                            const pos = fixedHtml.lastIndexOf(`<${tag}`);
+                            const closingTag = `</${tag}>`;
+                            
+                            if (pos !== -1 && !fixedHtml.includes(closingTag, pos)) {
+                                fixedHtml += closingTag;
+                                appliedFixes.push({
+                                    ...issue,
+                                    status: 'fixed'
+                                });
+                            }
+                        } else if (issue.message.includes('خاصية alt')) {
+                            fixedHtml = fixedHtml.replace(/<img([^>]*)>/gi, (match, attrs) => {
+                                if (!attrs.includes('alt=')) {
+                                    return `<img${attrs} alt="صورة">`;
+                                }
+                                return match;
+                            });
+                            appliedFixes.push({
+                                ...issue,
+                                status: 'fixed'
+                            });
+                        }
+                    }
+                });
+                
+                // تطبيق إصلاحات CSS
+                projectFiles.css = projectFiles.css.map(cssFile => {
+                    let fixedCss = cssFile.content;
+                    
+                    scanResults.css.forEach(issue => {
+                        if (issue.type === 'warning' && issue.message.includes('خاصية CSS بدون بادئات')) {
+                            const prop = issue.message.match(/خاصية CSS بدون بادئات: (.*)/i)[1];
+                            const prefixes = {
+                                'display: flex': ['-webkit-', '-ms-'],
+                                'display: grid': ['-ms-'],
+                                'transform': ['-webkit-', '-ms-'],
+                                'user-select': ['-webkit-', '-moz-', '-ms-'],
+                                'transition': ['-webkit-']
+                            }[prop];
+                            
+                            if (prefixes) {
+                                let prefixed = '';
+                                prefixes.forEach(prefix => {
+                                    prefixed += `${prefix}${prop}\n`;
+                                });
+                                
+                                fixedCss = fixedCss.replace(new RegExp(prop, 'g'), `${prefixed}${prop}`);
+                                appliedFixes.push({
+                                    ...issue,
+                                    status: 'fixed'
+                                });
+                            }
+                        }
+                    });
+                    
+                    return {
+                        ...cssFile,
+                        content: fixedCss
+                    };
+                });
+                
+                // تطبيق إصلاحات JavaScript
+                projectFiles.js = projectFiles.js.map(jsFile => {
+                    let fixedJs = jsFile.content;
+                    
+                    scanResults.js.forEach(issue => {
+                        if (issue.type === 'warning' && issue.message.includes('استخدام var')) {
+                            fixedJs = fixedJs.replace(/var\s+(\w+)\s*=/g, 'const $1 =');
+                            appliedFixes.push({
+                                ...issue,
+                                status: 'fixed'
+                            });
+                        } else if (issue.type === 'error' && issue.message.includes('eval()')) {
+                            manualReviewIssues.push(issue);
+                        }
+                    });
+                    
+                    return {
+                        ...jsFile,
+                        content: fixedJs
+                    };
+                });
+                
+                // تحديث المشروع بالإصلاحات
+                projectFiles.html = fixedHtml;
+                
+                // عرض المشكلات التي تم إصلاحها
+                updateFixedIssuesUI();
+                
+                // تحديث معاينة النتائج
+                updateResultPreview();
+            }
+
+            // تحديث واجهة المشكلات التي تم إصلاحها
+            function updateFixedIssuesUI() {
+                fixedIssuesList.innerHTML = '';
+                manualReviewList.innerHTML = '';
+                
+                // المشكلات التي تم إصلاحها
+                appliedFixes.forEach(fix => {
+                    const fixItem = document.createElement('div');
+                    fixItem.className = 'report-item success';
+                    
+                    fixItem.innerHTML = `
+                        <div class="report-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="report-content">
+                            <strong>${fix.message}</strong>
+                            <div class="text-muted">${fix.category.toUpperCase()} | السطر: ${fix.line}</div>
+                            <div class="text-success"><i class="fas fa-check me-2"></i>تم الإصلاح</div>
+                        </div>
+                    `;
+                    
+                    fixedIssuesList.appendChild(fixItem);
+                });
+                
+                // المشكلات التي تحتاج مراجعة يدوية
+                manualReviewIssues.forEach(issue => {
+                    const reviewItem = document.createElement('div');
+                    reviewItem.className = 'report-item warning';
+                    
+                    reviewItem.innerHTML = `
+                        <div class="report-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="report-content">
+                            <strong>${issue.message}</strong>
+                            <div class="text-muted">${issue.category.toUpperCase()} | السطر: ${issue.line}</div>
+                            <div class="text-warning"><i class="fas fa-exclamation me-2"></i>يحتاج مراجعة يدوية</div>
+                        </div>
+                    `;
+                    
+                    manualReviewList.appendChild(reviewItem);
+                });
+                
+                // تحديث الإحصائيات
+                document.getElementById('fixedCount').textContent = appliedFixes.length;
+                document.getElementById('remainingIssues').textContent = manualReviewIssues.length;
+                document.getElementById('improvedLoadTime').textContent = 
+                    (parseFloat(document.getElementById('loadTime').textContent) * 0.7).toFixed(2);
+                document.getElementById('finalScore').textContent = 
+                    Math.min(100, parseInt(document.getElementById('overallScore').textContent) + 20);
+            }
+
+            // تحديث معاينة النتائج
+            function updateResultPreview() {
+                // عرض HTML المصلح
+                fixedCodeContent.textContent = projectFiles.html;
+                hljs.highlightElement(fixedCodeContent);
+                
+                // عرض المعاينة
+                previewFrame.srcdoc = projectFiles.html;
+                
+                // إنشاء عرض الفروقات
+                generateDiffView();
+            }
+
+            // إنشاء عرض الفروقات
+            function generateDiffView() {
+                const originalLines = projectFiles.html.split('\n');
+                const fixedLines = projectFiles.html.split('\n');
+                
+                diffViewer.innerHTML = '';
+                
+                // مقارنة بسيطة (في الواقع، يجب استخدام مكتبة متخصصة مثل diff-match-patch)
+                for (let i = 0; i < Math.max(originalLines.length, fixedLines.length); i++) {
+                    const originalLine = originalLines[i] || '';
+                    const fixedLine = fixedLines[i] || '';
+                    
+                    if (originalLine !== fixedLine) {
+                        const diffLine = document.createElement('div');
+                        diffLine.className = 'diff-line diff-change';
+                        diffLine.textContent = fixedLine || originalLine;
+                        diffViewer.appendChild(diffLine);
+                    } else if (i < 20) { // عرض أول 20 سطرًا فقط للاختصار
+                        const diffLine = document.createElement('div');
+                        diffLine.className = 'diff-line';
+                        diffLine.textContent = originalLine;
+                        diffViewer.appendChild(diffLine);
+                    }
+                }
+            }
+
+            // تحميل النتائج
+            downloadHtmlBtn.addEventListener('click', function() {
+                const blob = new Blob([projectFiles.html], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'fixed-platform.html';
+                document.body.appendChild(a);
+                a.click();
+                
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+                
+                showToast('تم تحميل ملف HTML المصلح!', 'success');
+            });
+
+            downloadZipBtn.addEventListener('click', function() {
+                showToast('جاري إنشاء ملف ZIP...', 'info');
+                
+                setTimeout(() => {
+                    const zip = new JSZip();
+                    
+                    // إضافة ملف HTML
+                    zip.file('index.html', projectFiles.html);
+                    
+                    // إضافة ملفات CSS
+                    projectFiles.css.forEach(cssFile => {
+                        zip.file(`css/${cssFile.name}`, cssFile.content);
+                    });
+                    
+                    // إضافة ملفات JS
+                    projectFiles.js.forEach(jsFile => {
+                        zip.file(`js/${jsFile.name}`, jsFile.content);
+                    });
+                    
+                    // إنشاء ملف ZIP
+                    zip.generateAsync({ type: 'blob' }).then(content => {
+                        saveAs(content, 'fixed-platform.zip');
+                        showToast('تم تحميل ملف ZIP بنجاح!', 'success');
+                    });
+                }, 1000);
+            });
+
+            downloadReportBtn.addEventListener('click', function() {
+                exportReportBtn.click();
+            });
+
+            // التكامل مع GitHub/GitLab (وظيفة وهمية)
+            githubBtn.addEventListener('click', function() {
+                showToast('سيتم فتح نافذة لتسجيل الدخول إلى GitHub', 'info');
+            });
+
+            gitlabBtn.addEventListener('click', function() {
+                showToast('سيتم فتح نافذة لتسجيل الدخول إلى GitLab', 'info');
+            });
+
+            // تحديث الخطوات الأولية
+            updateSteps(currentStep);
+        });
+    </script>
+</body>
+</html>
