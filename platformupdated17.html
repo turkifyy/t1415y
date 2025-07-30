@@ -6398,7 +6398,26 @@ analyzeGeoDistribution(visits) {
     const topCountry = Object.entries(regionCounts).sort((a,b)=>b[1]-a[1])[0]?.[0];
     return { distribution: regionCounts, topCountry };
 }
-    
+analyzeClickPatterns(clicks) {
+  // مثال: تحليل أنماط النقر حسب نوع النمط
+  const patterns = clicks.reduce((acc, c) => {
+    const pattern = c.patternType || 'غير معروف';
+    acc[pattern] = (acc[pattern] || 0) + 1;
+    return acc;
+  }, {});
+  const topPattern = Object.entries(patterns)
+    .sort((a, b) => b[1] - a[1])[0]?.[0] || null;
+  return { patterns, topPattern };
+}
+
+calculateBehaviorScore(metrics) {
+  // حساب درجة السلوك بناءً على بعض العوامل
+  const { engagement = 0, recency = 0, frequency = 0 } = metrics;
+  const score = Math.round(
+    (engagement * 0.5 + frequency * 0.3 + (1 / (recency + 1)) * 0.2) * 100
+  );
+  return score;
+}
 }
 
 // تهيئة نظام الخوارزميات
