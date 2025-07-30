@@ -8060,6 +8060,120 @@ document.addEventListener('DOMContentLoaded', function() {
         trailerSystem.updateContentTypeBasedFields();
     }, 1000);
 });
+        
+// 1. دالة إظهار لوحة الخوارزميات
+function showAlgorithms() {
+    hideAllPanels();
+    document.getElementById('algorithmsPanel').style.display = 'block';
+    loadAlgorithms();
+}
+
+// 2. دالة تحميل الخوارزميات
+async function loadAlgorithms() {
+    try {
+        // جلب قائمة الخوارزميات من Firestore
+        const algorithmsRef = db.collection('algorithms');
+        const snapshot = await algorithmsRef.get();
+        
+        let algorithmsGrid = document.getElementById('algorithmsGrid');
+        algorithmsGrid.innerHTML = ''; // مسح المحتوى السابق
+        
+        snapshot.forEach(doc => {
+            const algo = doc.data();
+            const algoCard = `
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <h5 class="algorithm-title">
+                            <i class="${algo.icon || 'fas fa-cogs'}"></i>
+                            ${algo.name}
+                        </h5>
+                        <span class="algorithm-category category-${algo.category}">
+                            ${algo.category}
+                        </span>
+                    </div>
+                    <p class="algorithm-description">${algo.description}</p>
+                    <div class="algorithm-stats">
+                        <div class="algorithm-stat">
+                            <span class="algorithm-stat-value">${algo.runs || 0}</span>
+                            <span class="algorithm-stat-label">التشغيلات</span>
+                        </div>
+                        <div class="algorithm-stat">
+                            <span class="algorithm-stat-value">${algo.successRate || 0}%</span>
+                            <span class="algorithm-stat-label">النجاح</span>
+                        </div>
+                    </div>
+                    <div class="algorithm-controls">
+                        <button class="btn btn-sm btn-primary run-algorithm-btn" data-id="${doc.id}">
+                            <i class="fas fa-play"></i> تشغيل
+                        </button>
+                        <div class="form-check form-switch algorithm-switch">
+                            <input class="form-check-input" type="checkbox" id="switch-${doc.id}" ${algo.enabled ? 'checked' : ''}>
+                            <label class="form-check-label" for="switch-${doc.id}">${algo.enabled ? 'مفعل' : 'معطل'}</label>
+                        </div>
+                    </div>
+                </div>
+            `;
+            algorithmsGrid.innerHTML += algoCard;
+        });
+        
+        // إضافة معالج الأحداث لأزرار التشغيل
+        document.querySelectorAll('.run-algorithm-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const algoId = this.getAttribute('data-id');
+                runAlgorithm(algoId);
+            });
+        });
+        
+        // إضافة معالج الأحداث لمفاتيح التبديل
+        document.querySelectorAll('.algorithm-switch input').forEach(switchEl => {
+            switchEl.addEventListener('change', function() {
+                const algoId = this.id.replace('switch-', '');
+                toggleAlgorithm(algoId, this.checked);
+            });
+        });
+        
+    } catch (error) {
+        console.error("Error loading algorithms: ", error);
+        showNotification('error', 'فشل في تحميل الخوارزميات');
+    }
+}
+
+// 3. دالة تشغيل خوارزمية محددة
+async function runAlgorithm(algorithmId) {
+    try {
+        setLoading(true);
+        // تحديث عداد التشغيلات
+        await db.collection('algorithms').doc(algorithmId).update({
+            runs: firebase.firestore.FieldValue.increment(1),
+            lastRun: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        showNotification('success', 'تم تشغيل الخوارزمية بنجاح!');
+    } catch (error) {
+        console.error("Error running algorithm: ", error);
+        showNotification('error', 'فشل في تشغيل الخوارزمية');
+    } finally {
+        setLoading(false);
+    }
+}
+
+// 4. دالة تفعيل/تعطيل خوارزمية
+async function toggleAlgorithm(algorithmId, enabled) {
+    try {
+        await db.collection('algorithms').doc(algorithmId).update({
+            enabled: enabled
+        });
+        showNotification('success', `تم ${enabled ? 'تفعيل' : 'تعطيل'} الخوارزمية`);
+    } catch (error) {
+        console.error("Error toggling algorithm: ", error);
+        showNotification('error', 'فشل في تعديل حالة الخوارزمية');
+    }
+}
+
+// 5. إضافة حدث النقر لرابط الخوارزميات في القائمة
+document.getElementById('algorithmsLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    showAlgorithms();
+});
     </script>
 </body>
-</html></br></br></br></h></h></br></br></br></h></h></h></h></input></h></br></br></br></h></h></h></h></h></h></input></h></h></img></h></input></h></h></h></h></h></h></h></h></h></h></h></h></h></h></img></img></img></img></h></h></h></h></input></h></h></h></h></h></h></input></h></h></h></h></h></h></img></h></h></input></input></input></input></input></input></input></input></h></h></h></h></h></h></img></link></link></link></meta></meta></meta></meta></meta>
+</html>
