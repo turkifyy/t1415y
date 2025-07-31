@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/ipwho-proxy"
+  to = "https://ipwho.is/?lang=ar"
+  status = 200
+  force = true
