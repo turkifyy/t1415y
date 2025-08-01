@@ -3727,6 +3727,7 @@ async function recordVisit(linkId) {
         await db.collection('visits').add({
   timestamp: new Date(),
   linkId: linkId,
+        });
         // تحديث عداد النقرات
         await db.collection('links').doc(linkId).update({
             clicks: firebase.firestore.FieldValue.increment(1),
