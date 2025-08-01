@@ -3724,8 +3724,9 @@ async function recordVisit(linkId) {
         };
 
         // حفظ الزيارة في Firebase
-        await db.collection('visits').add(visitData);
-        
+        await db.collection('visits').add({
+  timestamp: new Date(),
+  linkId: linkId,
         // تحديث عداد النقرات
         await db.collection('links').doc(linkId).update({
             clicks: firebase.firestore.FieldValue.increment(1),
