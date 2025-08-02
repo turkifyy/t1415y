@@ -3874,10 +3874,17 @@ async function handleRedirection(linkId) {
                 };
             
             }
-            // ===== الكود المضمون لظهور الخلفية =====
 const backgroundElement = document.getElementById('linkBackground');
 if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
-    // 1. إعدادات أساسية للخلفية
+    // 1. إنشاء نسخة نظيفة من الرابط
+    const cleanBgUrl = linkData.socialBackground
+        .replace('blogger.googleusercontent.com', '')
+        .split('?')[0];
+    
+    // 2. استخدام خدمة وسيطة لتحويل الرابط
+    const proxyUrl = `https://images.weserv.nl/?url=${encodeURIComponent(cleanBgUrl)}&w=1500`;
+    
+    // 3. تطبيق الخلفية مع التحقق من التحميل
     backgroundElement.style.cssText = `
         display: block !important;
         position: fixed;
@@ -3887,34 +3894,26 @@ if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
         height: 100%;
         z-index: -1;
         background-color: #f0f5ff;
-        background-image: url('${linkData.socialBackground}');
+        background-image: url('${proxyUrl}');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-attachment: fixed;
-        opacity: 0.2;
-        transition: opacity 0.5s ease;
+        opacity: 0.15;
+        transition: opacity 0.8s ease;
     `;
     
-    // 2. تحميل الصورة مسبقاً
-    const imgLoader = new Image();
-    imgLoader.src = linkData.socialBackground + '?nocache=' + Math.random();
-    
-    // 3. تحسين العرض بعد التحميل
-    imgLoader.onload = function() {
+    // 4. التأكد من التحميل
+    const testImg = new Image();
+    testImg.onload = function() {
         backgroundElement.style.opacity = '0.15';
-        backgroundElement.style.backgroundImage = `url('${imgLoader.src}')`;
     };
-    
-    // 4. التعامل مع الأخطاء
-    imgLoader.onerror = function() {
+    testImg.onerror = function() {
         backgroundElement.style.backgroundImage = 'none';
-        backgroundElement.style.backgroundColor = '#f0f5ff';
     };
+    testImg.src = proxyUrl;
 } else {
     backgroundElement.style.display = 'none';
 }
-// ===== نهاية الكود =====
 
         
         // حساب رقم الحلقة للمسلسلات
