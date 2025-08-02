@@ -2102,8 +2102,8 @@ display: grid;
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: 9999999999;
-    opacity: 0.15; /* شفافية */
+    z-index: 13000;
+    
     transition: background-image 0.5s ease;
 }
     @media (max-width: 768px) {
@@ -3887,6 +3887,7 @@ async function handleRedirection(linkId) {
                 
                 // معالجة فشل تحميل صورة الخلفية
                 const img = new Image();
+                img.crossOrigin = "Anonymous";
                 img.onerror = () => {
                     backgroundElement.style.background = '#f0f5ff'; // العودة للون الأساسي
                 };
