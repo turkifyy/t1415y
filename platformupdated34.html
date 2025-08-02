@@ -3874,28 +3874,32 @@ async function handleRedirection(linkId) {
                 };
             
             }
-            
-            // ===== إضافة الميزة الجديدة: عرض خلفية الصورة =====
-            const backgroundElement = document.getElementById('linkBackground');       
-            if (linkData.socialBackground) {
-                // تعيين خلفية الصورة مع ضبط خصائص التجاوب
-                backgroundElement.style.backgroundImage = `url('${linkData.socialBackground}')`;
-                backgroundElement.style.backgroundSize = 'cover';
-                backgroundElement.style.backgroundPosition = 'center';
-                backgroundElement.style.backgroundRepeat = 'no-repeat';
-                backgroundElement.style.display = 'block';
-                
-                // معالجة فشل تحميل صورة الخلفية
-                const img = new Image();
-                img.crossOrigin = "Anonymous";
-                img.onerror = () => {
-                    backgroundElement.style.background = '#f0f5ff'; // العودة للون الأساسي
-                };
-                img.src = linkData.socialBackground;
-            } else {
-                backgroundElement.style.display = 'none';
-            }
-            // ===== نهاية الإضافة =====
+            const backgroundElement = document.getElementById('linkBackground');
+if (linkData.socialBackground) {
+    // 1. إعداد خلفية مؤقتة أثناء التحميل
+    backgroundElement.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)';
+    backgroundElement.style.display = 'block';
+    
+    // 2. تحميل الصورة مسبقًا لتجنب التأخير
+    const img = new Image();
+    img.onload = function() {
+        // 3. تأكيد تحميل الصورة قبل العرض
+        backgroundElement.style.backgroundImage = `url('${linkData.socialBackground}')`;
+        backgroundElement.style.backgroundSize = 'cover';
+        backgroundElement.style.backgroundPosition = 'center';
+        backgroundElement.style.backgroundRepeat = 'no-repeat';
+        console.log('✅ تم تحميل خلفية الصورة بنجاح');
+    };
+    img.onerror = function() {
+        // 4. استعادة الخلفية الأساسية إذا فشل التحميل
+        backgroundElement.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)';
+        console.error('❌ فشل تحميل الخلفية، تم استخدام لون بديل');
+    };
+    // 5. إضافة علامة وقت لمنع التخزين المؤقت
+    img.src = linkData.socialBackground + '?t=' + new Date().getTime();
+} else {
+    backgroundElement.style.display = 'none';
+}
         
         // حساب رقم الحلقة للمسلسلات
         let episodeNum = 1;
