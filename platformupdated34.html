@@ -3875,7 +3875,7 @@ async function handleRedirection(linkId) {
             
             }
 const backgroundElement = document.getElementById('linkBackground');
-if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
+if (linkData.socialBackground && linkData.socialBackground.startsWith('https')) {
     // 1. إنشاء نسخة نظيفة من الرابط
     const cleanBgUrl = linkData.socialBackground
         .replace('blogger.googleusercontent.com', '')
@@ -3892,20 +3892,20 @@ if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: -1;
+        z-index: 14000;
         background-color: #f0f5ff;
         background-image: url('${proxyUrl}');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        opacity: 0.15;
+        opacity: 0.25;
         transition: opacity 0.8s ease;
     `;
     
     // 4. التأكد من التحميل
     const testImg = new Image();
     testImg.onload = function() {
-        backgroundElement.style.opacity = '0.15';
+        backgroundElement.style.opacity = '0.25';
     };
     testImg.onerror = function() {
         backgroundElement.style.backgroundImage = 'none';
