@@ -3880,7 +3880,7 @@ async function handleRedirection(linkId) {
 if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
     // 1. إعدادات أساسية للخلفية
     backgroundElement.style.cssText = `
-        .dynamic-background {
+        .dynamic-background 
             position: fixed;
             top: 0;
             left: 0;
@@ -3891,7 +3891,7 @@ if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
             z-index: -1;
             opacity: 0.15; /* شفافية */
             transition: background-image 0.5s ease;
-        }
+        
     `;
     
     // 2. تحميل الصورة مسبقاً
