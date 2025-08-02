@@ -2102,7 +2102,7 @@ display: grid;
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: 13000;
+    z-index: 9999;
     
     transition: background-image 0.5s ease;
 }
@@ -3886,7 +3886,7 @@ if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 13000;
+        z-index: 99999;
         background-color: #f0f5ff;
         background-image: url('${linkData.socialBackground}');
         background-size: cover;
@@ -4006,7 +4006,7 @@ if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
         // إخفاء مؤشر التحميل بعد التعبئة
         redirectLoader.style.display = 'none';
         
-        // إعادة التوجيه بعد 15 ثانية
+        // إعادة التوجيه بعد 60 ثانية
         setTimeout(() => {
             window.location.href = destinationUrl;
         }, 60000);
