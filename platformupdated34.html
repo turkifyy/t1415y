@@ -3874,43 +3874,48 @@ async function handleRedirection(linkId) {
                 };
             
             }
-            
+            // ===== الكود المضمون لظهور الخلفية =====
 const backgroundElement = document.getElementById('linkBackground');
 if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
-    // 1. إظهار العنصر فوراً مع لون تحميل
+    // 1. إعدادات أساسية للخلفية
     backgroundElement.style.cssText = `
         display: block !important;
-        background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         z-index: -1;
-        opacity: 0.3;
-        transition: background-image 0.5s ease;
+        background-color: #f0f5ff;
+        background-image: url('${linkData.socialBackground}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        opacity: 0.2;
+        transition: opacity 0.5s ease;
     `;
     
-    // 2. إنشاء صورة خفية للتحميل المسبق
-    const loaderImg = new Image();
-    loaderImg.src = linkData.socialBackground + '?t=' + Date.now();
+    // 2. تحميل الصورة مسبقاً
+    const imgLoader = new Image();
+    imgLoader.src = linkData.socialBackground + '?nocache=' + Math.random();
     
-    // 3. عند تحميل الصورة بنجاح
-    loaderImg.onload = function() {
-        backgroundElement.style.backgroundImage = `url('${linkData.socialBackground}')`;
-        backgroundElement.style.backgroundSize = 'cover';
-        backgroundElement.style.backgroundPosition = 'center';
-        backgroundElement.style.backgroundRepeat = 'no-repeat';
+    // 3. تحسين العرض بعد التحميل
+    imgLoader.onload = function() {
         backgroundElement.style.opacity = '0.15';
+        backgroundElement.style.backgroundImage = `url('${imgLoader.src}')`;
     };
     
-    // 4. إذا فشل التحميل
-    loaderImg.onerror = function() {
-        backgroundElement.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)';
+    // 4. التعامل مع الأخطاء
+    imgLoader.onerror = function() {
+        backgroundElement.style.backgroundImage = 'none';
+        backgroundElement.style.backgroundColor = '#f0f5ff';
     };
 } else {
     backgroundElement.style.display = 'none';
 }
+// ===== نهاية الكود =====
+
         
         // حساب رقم الحلقة للمسلسلات
         let episodeNum = 1;
