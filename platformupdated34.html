@@ -3874,29 +3874,40 @@ async function handleRedirection(linkId) {
                 };
             
             }
-            const backgroundElement = document.getElementById('linkBackground');
-if (linkData.socialBackground) {
-    // 1. إعداد خلفية مؤقتة أثناء التحميل
-    backgroundElement.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)';
-    backgroundElement.style.display = 'block';
+            
+const backgroundElement = document.getElementById('linkBackground');
+if (linkData.socialBackground && linkData.socialBackground.startsWith('http')) {
+    // 1. إظهار العنصر فوراً مع لون تحميل
+    backgroundElement.style.cssText = `
+        display: block !important;
+        background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.3;
+        transition: background-image 0.5s ease;
+    `;
     
-    // 2. تحميل الصورة مسبقًا لتجنب التأخير
-    const img = new Image();
-    img.onload = function() {
-        // 3. تأكيد تحميل الصورة قبل العرض
+    // 2. إنشاء صورة خفية للتحميل المسبق
+    const loaderImg = new Image();
+    loaderImg.src = linkData.socialBackground + '?t=' + Date.now();
+    
+    // 3. عند تحميل الصورة بنجاح
+    loaderImg.onload = function() {
         backgroundElement.style.backgroundImage = `url('${linkData.socialBackground}')`;
         backgroundElement.style.backgroundSize = 'cover';
         backgroundElement.style.backgroundPosition = 'center';
         backgroundElement.style.backgroundRepeat = 'no-repeat';
-        console.log('✅ تم تحميل خلفية الصورة بنجاح');
+        backgroundElement.style.opacity = '0.15';
     };
-    img.onerror = function() {
-        // 4. استعادة الخلفية الأساسية إذا فشل التحميل
+    
+    // 4. إذا فشل التحميل
+    loaderImg.onerror = function() {
         backgroundElement.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)';
-        console.error('❌ فشل تحميل الخلفية، تم استخدام لون بديل');
     };
-    // 5. إضافة علامة وقت لمنع التخزين المؤقت
-    img.src = linkData.socialBackground + '?t=' + new Date().getTime();
 } else {
     backgroundElement.style.display = 'none';
 }
