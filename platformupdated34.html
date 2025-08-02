@@ -2102,11 +2102,20 @@ display: grid;
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: -1;
+    z-index: 9999999999;
     opacity: 0.15; /* شفافية */
     transition: background-image 0.5s ease;
 }
-
+    @media (max-width: 768px) {
+  .dynamic-background {
+    background-attachment: scroll !important;
+    background-size: contain;
+  }
+  
+  .content-card {
+    margin-top: 40px; /* إضافة مساحة */
+  }
+    }
     </style>
     
     <!-- Google Analytics -->
