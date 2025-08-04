@@ -6836,20 +6836,6 @@ class TrailerVideoSystem {
         }
     }
 
-    // استخراج معرف الفيديو من رابط يوتيوب
-    extractYouTubeVideoId(url) {
-        const patterns = [
-            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
-            /youtube\.com\/watch\?.*v=([^&\n?#]+)/
-        ];
-
-        for (let pattern of patterns) {
-            const match = url.match(pattern);
-            if (match) return match[1];
-        }
-        return null;
-    }
-
     // إظهار معاينة الفيديو
     showTrailerPreview(videoId) {
         const preview = document.getElementById('trailerPreview');
@@ -7091,6 +7077,21 @@ async function updateEpisodeContent(linkId, episodeNum) {
     } catch (error) {
         console.error('Episode update failed:', error);
     }
+}
+// دالة استخراج معرف فيديو يوتيوب من الرابط
+function extractYouTubeVideoId(url) {
+    if (!url) return null;
+    
+    const patterns = [
+        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+        /youtube\.com\/watch\?.*v=([^&\n?#]+)/
+    ];
+
+    for (let pattern of patterns) {
+        const match = url.match(pattern);
+        if (match) return match[1];
+    }
+    return null;
 }
     </script>
       </body> 
