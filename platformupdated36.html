@@ -6884,7 +6884,7 @@ class TrailerVideoSystem {
         
         if ((contentType === 'series' || contentType === 'movie') && videoId) {
             // استخدام thumbnail يوتيوب كصورة معاينة
-            const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+            const thumbnailUrl = `https://img.youtube.com/vi/${videoId}`;
             previewImage.src = thumbnailUrl;
         } else {
             // العودة للصورة الافتراضية
