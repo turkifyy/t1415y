@@ -2118,6 +2118,25 @@ display: grid;
     text-align: left;
 }
 
+/* إضافة هذه القواعد في نهاية قسم الـ CSS */
+#redirectPanel .custom-shape.shape-2 {
+    bottom: 20px !important; /* فوق الخلفية */
+    top: auto !important;
+    right: 20px !important; /* على جهة اليمين */
+    left: auto !important;
+    width: 80px !important; /* حجم أصغر */
+    height: 80px !important;
+    z-index: 10 !important; /* فوق الخلفية */
+    background: linear-gradient(135deg, var(--secondary-red) 0%, rgba(239, 90, 95, 0.5) 100%) !important;
+    border-radius: 20% 30% 70% 40% / 50% 30% 70% 50% !important;
+    animation: pulse 2s infinite ease-in-out !important;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}    
     </style>
  </head>
   <body>
