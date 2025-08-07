@@ -2104,7 +2104,7 @@ display: grid;
     background-size: cover;
     background-position: center;
     z-index: -1;
-    opacity: 0.1; /* شفافية */
+    
     transition: background-image 0.5s ease;
 }
     </style>
@@ -2663,7 +2663,7 @@ async function handleRedirection(linkId) {
             // تحديث رسالة التوجيه
             redirectMessage.innerHTML = `سيتم توجيهك لمشاهدة حلقة اليوم <span class="highlight">${episodeNum}</span> من المسلسل:<br><span class="highlight">${escapeHtml(titleToShow)}</span>`;
         } else {
-            redirectMessage.innerHTML = `سيتم توجيهك إلى <span class="highlight">${escapeHtml(getTypeName(linkType))}</span>:<br><span class="highlight">${escapeHtml(titleToShow)}</span>`;
+            redirectMessage.innerHTML = `سيتم توجيهك لمشاهدة <span class="highlight">${escapeHtml(getTypeName(linkType))}</span>:<br><span class="highlight">${escapeHtml(titleToShow)}</span>`;
         }
         
         // ===== التحكم في ظهور عنصر الحلقة =====
