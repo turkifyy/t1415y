@@ -3688,10 +3688,10 @@ async function handleRedirection(linkId) {
         // إخفاء مؤشر التحميل بعد التعبئة
         if (elements.loader) elements.loader.style.display = 'none';
         
-        // إعادة التوجيه بعد 15 ثانية
+        // إعادة التوجيه بعد 60 ثانية
         redirectTimer = setTimeout(() => {
             window.location.href = destinationUrl;
-        }, 15000);
+        }, 60000);
         
         // إعداد التحديث التلقائي للحلقات للمسلسلات
         if (isSeries && typeof setupDailyEpisodeUpdate === 'function') {
