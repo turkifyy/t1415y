@@ -4316,14 +4316,14 @@ const linkData = {
     id: linkId,
     seriesName: seriesName,
     linkType: linkType,
-    originalUrl: originalUrl,
-    isPosted: false,
-    lastPosted: null 
+    originalUrl: originalUrl, 
     shortUrl: newLink,
     customDomain: customDomain,
     // ===== إضافة الحقل الجديد =====
     socialBackground: socialBackground || '',
     // ===== نهاية الإضافة =====
+    isPosted: false,
+    lastPosted: null,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     userId: user ? user.uid : null,
     clicks: 0,
