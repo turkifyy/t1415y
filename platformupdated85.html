@@ -7932,14 +7932,12 @@ class BulkImportSystem {
             shortUrl: shortUrl,
             customDomain: this.selectedDomain,
             socialBackground: socialBackground || '',
-            bulkImported: true,
-            importDate: new Date()
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             userId: user.uid,
             clicks: 0,
             socialTitle: item.socialTitle || `${this.getTypeName(this.selectedContentType)} ${item.name}`,
             socialDescription: item.socialDescription || `شاهد ${item.name} الآن!`,
-             ...(videoData.hasTrailer ? {
+            ...(videoData.hasTrailer ? {
         trailerUrl: videoData.trailerUrl,
         trailerVideoId: videoData.trailerVideoId,
         socialImage: videoData.thumbnailUrl, // استخدام thumbnail يوتيوب
@@ -7948,6 +7946,8 @@ class BulkImportSystem {
             socialImage: item.socialImage || 'https://via.placeholder.com/1200x630/4A154B/FFFFFF?text=Turkify+Pro',
             hasTrailer: false
             })
+            bulkImported: true,
+            importDate: new Date()
         };
 
         // إضافة بيانات خاصة بالمسلسلات
