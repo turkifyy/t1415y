@@ -7937,15 +7937,6 @@ class BulkImportSystem {
             clicks: 0,
             socialTitle: item.socialTitle || `${this.getTypeName(this.selectedContentType)} ${item.name}`,
             socialDescription: item.socialDescription || `شاهد ${item.name} الآن!`,
-            ...(videoData.hasTrailer ? {
-        trailerUrl: videoData.trailerUrl,
-        trailerVideoId: videoData.trailerVideoId,
-        socialImage: videoData.thumbnailUrl, // استخدام thumbnail يوتيوب
-        hasTrailer: true
-             }:{
-            socialImage: item.socialImage || 'https://via.placeholder.com/1200x630/4A154B/FFFFFF?text=Turkify+Pro',
-            hasTrailer: false
-            })
             bulkImported: true,
             importDate: new Date()
         };
