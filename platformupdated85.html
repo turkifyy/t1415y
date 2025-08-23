@@ -7937,7 +7937,7 @@ class BulkImportSystem {
             clicks: 0,
             socialTitle: item.socialTitle || `${this.getTypeName(this.selectedContentType)} ${item.name}`,
             socialDescription: item.socialDescription || `شاهد ${item.name} الآن!`,
-            ...(videoData.hasTrailer, ? {
+            (videoData.hasTrailer ? {
             trailerUrl: videoData.trailerUrl,
             trailerVideoId: videoData.trailerVideoId,
             socialImage: videoData.thumbnailUrl,
