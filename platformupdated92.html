@@ -4653,10 +4653,6 @@ const videoData = trailerSystem.getVideoDataForSave();
 const linkData = {
     id: linkId,
     seriesName: seriesName,
-    importMethod: "bulk",
-    batchId: "batch-" + Date.now(),
-    importDate: new                 Date().toISOString().split('T')[0],
-   importStatus: "pending",
     linkType: linkType,
     originalUrl: originalUrl, 
     shortUrl: newLink,
@@ -4664,11 +4660,6 @@ const linkData = {
     // ===== إضافة الحقل الجديد =====
     socialBackground: socialBackground || '',
     // ===== نهاية الإضافة =====
-    isPosted: false,
-    lastPosted: null,
-    postCount: 0,
-    source: "turkii.netlify.app",
-    last_account: null,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     userId: user ? user.uid : null,
     clicks: 0,
